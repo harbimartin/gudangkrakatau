@@ -10,25 +10,28 @@
     <title>Gudang Krakatau</title>
 </head>
 <body>
-    <section class="logins">
-        <div class="flex flex-column justify-center items-center h-screen">
-        @if($error)
-            <div class="col-span-2">
-                <div class="rounded-md bg-red-100 text-red-800 md:flex p-3">
-                    <div class="inline-flex mb-auto">
-                        <svg class="my-auto h-3 w-3 md:h-4 md:w-4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                        </svg>
-                        <div class="ml-1 md:ml-2" style="min-width:110px;">Error Message : </div>
-                    </div>
-                    <div class="md:ml-2">{{$error['msg']}}</div>
+    <section class="bg-gray-200">
+        <div class="flex justify-center items-center h-screen">
+            <div class="px-5 rounded-md shadow-xl border md:w-2/6 py-8 w-full md:mx-0 mx-2 bg-white">
+                <div class="md:flex">
+                    <img class="mx-auto" src="assets/kjl.png">
+                    <h2 class="font-semibold text-center md:text-2xl mt-4 flex-grow">Login Gudang Krakatau</h2>
                 </div>
-            </div>
-        @endif
-            <div class="p-4 rounded-md shadow-xl border md:w-2/6 w-full md:mx-0 mx-2">
-                <h2 class="font-bold text-center text-lg">Login Gudang Krakatau</h2>
                 <form class="w-full mt-10" action="{{url('login')}}" method="POST">
                     @csrf
+                    @if($error)
+                        <div class="col-span-2 my-2">
+                            <div class="rounded-md bg-red-100 text-red-800 md:flex p-3">
+                                <div class="inline-flex mb-auto">
+                                    <svg class="my-auto h-3 w-3 md:h-4 md:w-4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                    </svg>
+                                    <div class="ml-1 md:ml-2" style="min-width:110px;">Error Message : </div>
+                                </div>
+                                <div class="md:ml-2">{{$error['msg']}}</div>
+                            </div>
+                        </div>
+                    @endif
                     <input hidden name="_last_" value="{{request()->_last_ ? request()->_last_ : request()->fullUrl()}}">
                     <div class="form-group">
                         <label class="block text-gray-700 text-sm font-sans font-semibold mb-2" for="nik">Username</label>
