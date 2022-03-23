@@ -32,7 +32,7 @@ class AuthController extends Controller{
      */
     public function store(Request $request){
         // LOGIN
-
+        return $request->toArray();
     }
 
     /**

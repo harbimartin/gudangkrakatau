@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Middleware;
+
 use Closure;
 
-class WebAuth{
+class WebLogin{
     /**
      * Handle an incoming request.
      *
@@ -14,8 +15,8 @@ class WebAuth{
     public function handle($request, Closure $next){
         session_start();
         if(isset($_SESSION['gudang_id']) || !empty($_SESSION['gudang_id'])){
-            return $next($request);
+            return redirect(url('/home'));
         }
-        return redirect(url('/login'));
+        return $next($request);
     }
 }
