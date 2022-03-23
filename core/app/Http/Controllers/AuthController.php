@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller{
     /**
@@ -32,6 +33,15 @@ class AuthController extends Controller{
      */
     public function store(Request $request){
         // LOGIN
+        $credentials = $request->only('username', 'password');
+        // dd($credentials);
+        if (Auth::attempt($credentials)) {
+            if(Auth::check()){
+                dd(Auth::user());
+            }
+            dd('ga ketemu');
+        }
+        return $this->err_handler($request, 'error', "Username dan password tidak cocok!");
         return $request->toArray();
     }
 
