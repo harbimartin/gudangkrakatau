@@ -4,19 +4,23 @@ namespace App\Http\Controllers;
 
 use App\EmailSend;
 use App\Lstp;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 
 class ViewController extends Controller{
     public function home(Request $request){
         return view('pages.home', ['on'=>'home']);
     }
+    public function plain(){
+        return redirect(url('home'));
+    }
     public function sendsap(Request $request){
-        $data = Lstp::filter($request)->where('budget_status','Approved')->whereNull('banfn')
+        $data = User::filter($request)->where('budget_status','Approved')->whereNull('banfn')
         ->with(['doc_types','budget_versions'])->get();
         return view('pages.monitor.sendsap', [ 'data'=>$data, 'total'=>$this->monitor_count()]);
     }
     public function cancelsap(Request $request){
-        $data = Lstp::filter($request)->where(['budget_status'=>'Canceled'])->where(function($q){
+        $data = User::filter($request)->where(['budget_status'=>'Canceled'])->where(function($q){
             $q->where('fb_type','!=','CL')->orWhere('result','!=','SC');
         })->get();
         return view('pages.monitor.cancelsap', [ 'data'=>$data, 'total'=>$this->monitor_count()]);
@@ -26,10 +30,10 @@ class ViewController extends Controller{
     }
     public function monitor_count(){
         return [
-            'Cancel' => Lstp::where(['budget_status'=>'Canceled'])->where(function($q){
+            'Cancel' => User::where(['budget_status'=>'Canceled'])->where(function($q){
                             $q->where('fb_type','!=','CL')->orWhere('result','!=','SC');
                         })->count(),
-            'Send' => Lstp::where('budget_status','Approved')->whereNull('banfn')->count(),
+            'Send' => User::where('budget_status','Approved')->whereNull('banfn')->count(),
             'Error' => EmailSend::where('view','error')->count(),
             'User' => EmailSend::where('view','mails')->count(),
             'SAP' => EmailSend::where('view','xmls')->count()
