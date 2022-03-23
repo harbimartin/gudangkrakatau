@@ -11,7 +11,7 @@
 </head>
 <body>
     <section class="logins">
-        <div class="justify-center items-center h-screen">
+        <div class="flex flex-column justify-center items-center h-screen">
         @if($error)
             <div class="col-span-2">
                 <div class="rounded-md bg-red-100 text-red-800 md:flex p-3">
