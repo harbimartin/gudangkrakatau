@@ -6,6 +6,7 @@ use App\EmailSend;
 use App\Lstp;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 
 class ViewController extends Controller{
     public function home(Request $request){
