@@ -13,9 +13,9 @@
     <section class="bg-gray-200">
         <div class="flex justify-center items-center h-screen">
             <div class="px-5 rounded-md shadow-xl border md:w-2/6 py-8 w-full md:mx-0 mx-2 bg-white">
-                <div class="md:flex">
+                <div>
                     <img class="mx-auto" src="assets/kjl.png">
-                    <h2 class="font-semibold text-center md:text-2xl mt-4 flex-grow">Login Gudang Krakatau</h2>
+                    <h2 class="font-semibold text-center md:text-2xl mt-4 flex-grow">GUDANG KRAKATAU</h2>
                 </div>
                 <form class="w-full mt-10" action="{{url('login')}}" method="POST">
                     @csrf

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class AuthController extends Controller{
     /**
@@ -12,6 +13,14 @@ class AuthController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(){
+        $out = [];
+            foreach (Route::getRoutes()->get() as $r){
+                if(isset($r->action['controller'])){
+                $out[] = $r->action['controller'];
+                }
+            }
+        dd($out);
+        return;
         $error = $this->err_get('error');
         return view('login', [ 'error' => $error ]);
     }
