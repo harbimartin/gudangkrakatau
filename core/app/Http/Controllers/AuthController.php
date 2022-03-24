@@ -25,11 +25,6 @@ class AuthController extends Controller{
         // return;
         if (Auth::user()){
             
-
-            if (\Session::get('menu')) {
-                return (\Session::get('menu'));
-            }
-            
             return route('home');
         }
         $error = $this->err_get('error');
@@ -58,8 +53,6 @@ class AuthController extends Controller{
         if (Auth::attempt($credentials)) {
             $menus = Menu::where('parent', '=', NULL)->get();
 
-            // dd($menus);
-            // $data[] = [];
             foreach ($menus as $key => $value) {
                 $data['menu'][$key]['header']['name'] = $value->name;
                 $data['menu'][$key]['header']['key'] = $value->key;
