@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Menu;
+// use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +24,12 @@ class AuthController extends Controller{
         // dd($out);
         // return;
         if (Auth::user()){
+            
+
+            if (\Session::get('menu')) {
+                return (\Session::get('menu'));
+            }
+            
             return route('home');
         }
         $error = $this->err_get('error');
@@ -48,12 +56,38 @@ class AuthController extends Controller{
         $credentials = $request->only('username', 'password');
         // dd($credentials);
         if (Auth::attempt($credentials)) {
+            $menus = Menu::where('parent', '=', NULL)->get();
+
+            // dd($menus);
+            // $data[] = [];
+            foreach ($menus as $key => $value) {
+                $data['menu'][$key]['header']['name'] = $value->name;
+                $data['menu'][$key]['header']['key'] = $value->key;
+                $data['menu'][$key]['header']['status'] =0;
+                if ($value->parent()->count() > 0) {
+                    $data['menu'][$key]['parent']= $this->parents($value, $key); 
+                }
+                
+            }
+            \Session::put('menu', $data);
+
             return redirect('/home');
         }
         return $this->err_handler($request, 'error', "Username dan password tidak cocok!");
         // return $request->toArray();
     }
+    public function parents($value, $key)
+    {
+        foreach($value->parent()->get() as $ky => $val ){
+            $data[$ky]['name'] = $val->name;
+            $data[$ky]['key'] = $val->key;
+            if ($val->parent()->count() > 0) {
+                $data[$ky]['child'] = $this->parents($val, $ky); 
+            }
+        }
 
+        return $data;
+    }
     /**
      * Display the specified resource.
      *
