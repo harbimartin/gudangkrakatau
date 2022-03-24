@@ -11,8 +11,7 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
+    public function up(){
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username')->unique();
@@ -22,6 +21,9 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('group_id');
             $table->rememberToken();
             $table->timestamps();
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('group_id')->references('id')->on('groups');
         });
     }
 

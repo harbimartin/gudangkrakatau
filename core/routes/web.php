@@ -4,13 +4,13 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['webauth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 //     Route::resource('/email', 'EmailSendController');
 //     Route::get('/monitor', 'ViewController@monitor');
 //     Route::get('/sendsap', 'ViewController@sendsap');
 //     Route::get('/cancelsap', 'ViewController@cancelsap');
-    Route::get('/home', 'ViewController@home');
+    Route::get('/home', 'ViewController@home')->name('home');
 });
-Route::resource('/login', 'AuthController')->middleware('weblogin');
+Route::resource('/login', 'AuthController')->name('index', 'login');
 Route::get('/', 'ViewController@plain');
 // Route::get('/maintenance', 'ViewController@maintenance');

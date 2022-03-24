@@ -13,14 +13,17 @@ class AuthController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $out = [];
-            foreach (Route::getRoutes()->get() as $r){
-                if(isset($r->action['controller'])){
-                $out[] = $r->action['controller'];
-                }
-            }
-        dd($out);
-        return;
+        // $out = [];
+        //     foreach (Route::getRoutes()->get() as $r){
+        //         if(isset($r->action['controller'])){
+        //         $out[] = $r->action['controller'];
+        //         }
+        //     }
+        // dd($out);
+        // return;
+        if (Auth::user()){
+            return route('home');
+        }
         $error = $this->err_get('error');
         return view('login', [ 'error' => $error ]);
     }
@@ -45,9 +48,7 @@ class AuthController extends Controller{
         $credentials = $request->only('username', 'password');
         // dd($credentials);
         if (Auth::attempt($credentials)) {
-            if(Auth::check()){
-                return redirect('/home');
-            }
+            return redirect('/home');
         }
         return $this->err_handler($request, 'error', "Username dan password tidak cocok!");
         // return $request->toArray();

@@ -123,23 +123,23 @@
 </head>
 <body>
     <?php
-        $lstp = $_SESSION['lstp_ta'];
+        $lstp = 0;
         $name = 'approv';
-        $menus = [
-            'home'=>['name'=>'Home', 'ico'=>'home.svg'],
-            // 'persetujuan'=>['name'=>'Persetujuan', 'ico'=>'parent.svg', 'children'=>[
-                'persetujuan'=>['name'=>'Persetujuan', 'ico'=>'menu_data.png', 'notif'=>'lstp'],
-                'draft'=>['name'=>'Draft LSTP', 'ico'=>'menu_data.png'],
-                'overview'=>['name'=>'Overview LSTP', 'ico'=>'menu_data.png'],
-            // ]]
-        ];
-        // if (!$_SESSION['eproc_admin']){
-        //     unset($menus['verifikasi']);
-        //     unset($menus['verif']);
-        // }
-        // if (!$_SESSION['eproc_pengadaan']){
-        //     unset($menus['log']);
-        // }
+        $menus = $_SESSION['menu'];
+        // [
+        //     'home'=>['name'=>'Home', 'ico'=>'home.svg'],
+        //     'config'=>['name'=>'Configuration', 'ico'=>'menu_data.png', 'children'=>[
+        //         'group-man' => ['name'=>'Group Management', 'ico'=>'menu_data.png'],
+        //         'menu-man' => ['name'=>'Menu Management', 'ico'=>'menu_data.png'],
+        //         'user-man' => ['name'=>'User Management', 'ico'=>'menu_data.png']
+        //     ]],
+        //     'user'=>['name'=>'Menu Management', 'ico'=>'home.svg'],
+        //     // 'persetujuan'=>['name'=>'Persetujuan', 'ico'=>'parent.svg', 'children'=>[
+        //         'persetujuan'=>['name'=>'Persetujuan', 'ico'=>'menu_data.png', 'notif'=>'lstp'],
+        //         'draft'=>['name'=>'Draft LSTP', 'ico'=>'menu_data.png'],
+        //         'overview'=>['name'=>'Overview LSTP', 'ico'=>'menu_data.png'],
+        //     // ]]
+        // ];
     ?>
     <section id="vue-app" class="body md:flex max-w-screen max-h-screen ">
         <section class="navigation w-full md:h-screen md:max-h-screen md:border-gray-300 md:border-r fw-nav">

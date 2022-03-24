@@ -7,6 +7,7 @@ use App\Lstp;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Auth;
 
 class ViewController extends Controller{
     public function home(Request $request){
