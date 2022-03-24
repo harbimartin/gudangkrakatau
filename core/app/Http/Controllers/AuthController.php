@@ -46,12 +46,11 @@ class AuthController extends Controller{
         // dd($credentials);
         if (Auth::attempt($credentials)) {
             if(Auth::check()){
-                dd(Auth::user());
+                return redirect('/home');
             }
-            dd('ga ketemu');
         }
         return $this->err_handler($request, 'error', "Username dan password tidak cocok!");
-        return $request->toArray();
+        // return $request->toArray();
     }
 
     /**
