@@ -14,6 +14,7 @@ class CreateMItemsTable extends Migration{
         Schema::create('m_items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('sku');
             $table->string('desc');
             $table->boolean('status');
             $table->timestamps();

@@ -15,11 +15,13 @@ class CreateMItemUnitsTable extends Migration
         Schema::create('m_item_units', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('quantity')->default(1);
-            $table->unsignedBigInteger('m_unit_measures');
+            $table->unsignedBigInteger('m_item_id');
+            $table->unsignedBigInteger('m_unit_id');
             $table->timestamps();
         });
         Schema::table('m_item_units', function (Blueprint $table) {
-            $table->foreign('m_unit_measures')->references('id')->on('m_unit_measures');
+            $table->foreign('m_item_id')->references('id')->on('m_items');
+            $table->foreign('m_unit_id')->references('id')->on('m_unit_measures');
         });
     }
 

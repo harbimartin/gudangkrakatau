@@ -4,7 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'menu'])->group(function () {
 //     Route::resource('/email', 'EmailSendController');
 //     Route::get('/monitor', 'ViewController@monitor');
 //     Route::get('/sendsap', 'ViewController@sendsap');

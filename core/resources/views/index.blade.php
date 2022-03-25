@@ -125,7 +125,10 @@
     <?php
         $lstp = 0;
         $name = 'approv';
-        $menus = $_SESSION['menu'];
+        // $menus = $_SESSION['menu'];
+        echo json_encode(Session::get('menu'));
+        $menus = Session::get('menu');
+        $ico = [ 'menu_data.png', 'menu_data.png' ];
         // [
         //     'home'=>['name'=>'Home', 'ico'=>'home.svg'],
         //     'config'=>['name'=>'Configuration', 'ico'=>'menu_data.png', 'children'=>[
@@ -165,11 +168,16 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <?php $sel_tab = '' ?>
-                    @foreach ($menus as $kmenu => $menu)
-                        <a @isset($menu['children']) v-on:click="showTab('{{$kmenu}}')" @else href="{{ url('/') }}/{{$kmenu}}" @endisset>
-                            <div class="inline-flex w-full px-3 py-2.5 cursor-pointer {{isset($on) && $on==$kmenu ? 'bg-blue-100 hover:bg-blue-200' : 'hover:bg-gray-100 '}}">
-                                <img class="h-5 w-5 my-auto" src="{{url('/assets/'.$menu['ico'])}}">
+                    <a href="http://ss0.krakatauport.id:8086/lstp/core/public/manual-lstp-user-v1.pdf" target="_blank">
+                        <div class="inline-flex w-full px-3 py-2.5 cursor-pointer hover:bg-gray-100">
+                            <img class="h-5 w-5 my-auto" src="{{url('/assets/home.svg')}}">
+                            <p class="my-auto ml-3 text-sm font-semibold">Home</p>
+                        </div>
+                    </a>
+                    @foreach ($menus as $menu)
+                        <a @isset($menu['children']) v-on:click="showTab('{{$menu['key']}}')" @else href="{{ url('/') }}/{{$menu['key']}}" @endisset>
+                            <div class="inline-flex w-full px-3 py-2.5 cursor-pointer {{isset($on) && $on==$menu['key'] ? 'bg-blue-100 hover:bg-blue-200' : 'hover:bg-gray-100 '}}">
+                                <img class="h-5 w-5 my-auto" src="{{url('/assets/'.$ico[$menu['icon']])}}">
                                 <p class="my-auto ml-3 text-sm font-semibold">{{$menu['name']}}</p>
                                 @isset($menu['notif'])
                                     <div class="rounded-xl bg-red-600 text-white text-sm font-semibold px-2.5 py-0.5 ml-auto mr-4 my-auto">
@@ -179,18 +187,18 @@
                             </div>
                         </a>
                         @isset($menu['children'])
-                        <div class="thidden" v-bind:class="{block:tmenu=='{{$kmenu}}'}">
+                        <div class="thidden" v-bind:class="{block:tmenu=='{{$menu['key']}}'}">
                             @foreach($menu['children'] as $kchild => $child)
                             <a href="{{ url('/') }}/{{$kchild}}">
                                 <?php
                                      if (isset($on) && $on==$kchild){
-                                         $sel_tab = $kmenu;
+                                         $sel_tab = $menu['key'];
                                          $onm = true;
                                      }else
                                         $onm = false
                                 ?>
                                 <div class="inline-flex w-full pl-6 pr-3 py-2.5 cursor-pointer {{$onm ? 'bg-blue-100 hover:bg-blue-200' : 'hover:bg-gray-100 '}}">
-                                    <img class="h-5 w-5 mb-auto mt-1" src="{{url('/assets/'.$child['ico'])}}">
+                                    <img class="h-5 w-5 mb-auto mt-1" src="{{url('/assets/'.$ico[$child['icon']])}}">
                                     <p class="my-auto ml-3 text-sm font-semibold">{{$child['name']}}</p>
                                     @isset($child['notif'])
                                         <div class="rounded-xl bg-red-600 text-white text-sm font-semibold px-2.5 py-0.5 ml-auto mr-4 mb-auto mt-0.5">

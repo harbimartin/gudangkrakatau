@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Menus;
 use App\Http\Middleware\WebAuth;
 use App\Http\Middleware\WebLogin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -64,7 +65,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'webauth' => WebAuth::class,
-        'weblogin' => WebLogin::class
+        'menu' => Menus::class,
     ];
 }
