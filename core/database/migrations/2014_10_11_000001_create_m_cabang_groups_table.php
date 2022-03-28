@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMUnitMeasuresTable extends Migration
+class CreateMCabangGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,16 @@ class CreateMUnitMeasuresTable extends Migration
      * @return void
      */
     public function up(){
-        Schema::create('m_unit_measures', function (Blueprint $table) {
+        Schema::create('m_cabang_groups', function (Blueprint $table) {
             $table->id();
-            $table->char('code', 10);
-            $table->double('decimal')->default(0);
-            $table->string('desc')->default('-');
+            $table->unsignedBigInteger('m_cabang_id');
             $table->unsignedBigInteger('group_id');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });
-        Schema::table('m_unit_measures', function (Blueprint $table) {
-            $table->foreign('group_id')->references('id')->on('m_unit_groups');
+        Schema::table('m_cabang_groups', function (Blueprint $table) {
+            $table->foreign('m_cabang_id')->references('id')->on('m_cabangs');
+            $table->foreign('group_id')->references('id')->on('groups');
         });
     }
 
@@ -33,6 +32,6 @@ class CreateMUnitMeasuresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('m_unit_measures');
+        Schema::dropIfExists('groups');
     }
 }

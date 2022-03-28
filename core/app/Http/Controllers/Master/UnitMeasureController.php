@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
 
+use App\Http\Controllers\Controller;
 use App\MasterUnitOfMeasure;
 use App\MUnitMeasure;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class MUnitMeasureController extends Controller{
+class UnitMeasureController extends Controller{
     /**
      * Display an list of the resource.
      *

@@ -4,8 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model
-{
+class Menu extends Model{
+    public $table = 'm_menus';
+    public $guarded = [];
     /**
      * Get all of the parent for the Menu
      *

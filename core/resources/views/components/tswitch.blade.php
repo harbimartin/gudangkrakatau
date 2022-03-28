@@ -70,13 +70,13 @@
         @break
     @case('State')
         {{-- <small class="flex"> --}}
-            @if($item[$key]=='AKTIF')
+            @if($item[$key])
                 <small class="px-2 inline-flex mx-auto leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                    {{$item[$key]}}
+                    AKTIF
                 </small>
             @else
                 <small class="px-2 inline-flex mx-auto leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                    {{$item[$key]}}
+                    NON-AKTIF
                 </small>
             @endif
         {{-- </div> --}}
@@ -124,6 +124,7 @@
         <form action="{{Request::url().'/'.$item['id']}}" method="POST">
             @csrf
             @method('PUT')
+            <input hidden name="_last_" value="{{request()->fullUrl()}}">
             <input id="{{$key}}" name="{{$key}}" value="{{$item[$key]?0:1}}" hidden>
             <button type="submit" class="text-indigo-600 hover:text-indigo-900">{{$item[$key] ? 'Nonaktifkan' : 'Aktifkan'}}</button>
         </form>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGroupMenusTable extends Migration
+class CreateMMenusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateGroupMenusTable extends Migration
      */
     public function up()
     {
-        Schema::create('group_menus', function (Blueprint $table) {
+        Schema::create('m_menus', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('group_id');
-            $table->unsignedBigInteger('menu_id');
+            $table->unsignedBigInteger('parent')->nullable();
+            $table->char('key',16);
+            $table->string('name')->default('No Name');
+            $table->unsignedTinyInteger('icon')->default(0);
+            $table->boolean('status')->default(false);
             $table->timestamps();
-        });
-        Schema::table('group_menus', function (Blueprint $table) {
-            $table->foreign('group_id')->references('id')->on('groups');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateGroupMenusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_menus');
+        Schema::dropIfExists('menus');
     }
 }

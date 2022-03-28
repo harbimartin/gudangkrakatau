@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMBrandsTable extends Migration
+class CreateMGudangAreasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,19 @@ class CreateMBrandsTable extends Migration
      * @return void
      */
     public function up(){
-        Schema::create('m_brands', function (Blueprint $table) {
+        Schema::create('m_gudang_areas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('desc');
+            $table->unsignedDecimal('panjang');
+            $table->unsignedDecimal('lebar');
+            $table->unsignedDecimal('tinggi');
+            $table->unsignedBigInteger('m_gudang_id');
             $table->boolean('status')->default(false);
             $table->timestamps();
+        });
+        Schema::table('m_gudang_areas', function (Blueprint $table) {
+            $table->foreign('m_gudang_id')->references('id')->on('m_gudangs');
         });
     }
 
@@ -28,6 +35,6 @@ class CreateMBrandsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('m_brands');
+        Schema::dropIfExists('gudang_areas');
     }
 }

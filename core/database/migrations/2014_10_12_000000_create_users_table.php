@@ -16,15 +16,17 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('name');
+            $table->string('jabatan');
             $table->string('email')->unique();
             $table->string('password');
-            $table->unsignedBigInteger('group_id');
+            $table->boolean('status')->default(1);
+            // $table->unsignedBigInteger('group_id');
             $table->rememberToken();
             $table->timestamps();
         });
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('group_id')->references('id')->on('groups');
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->foreign('group_id')->references('id')->on('groups');
+        // });
     }
 
     /**

@@ -4,23 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGudangAreasTable extends Migration
+class CreateMItemGroupsTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up(){
-        Schema::create('gudang_areas', function (Blueprint $table) {
+    public function up()
+    {
+        Schema::create('m_item_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('desc');
-            $table->unsignedBigInteger('gudang_id');
+            $table->string('desc')->default('');
+            $table->boolean('status')->default(false);
             $table->timestamps();
-        });
-        Schema::table('gudang_areas', function (Blueprint $table) {
-            $table->foreign('gudang_id')->references('id')->on('gudangs');
         });
     }
 
@@ -31,6 +29,6 @@ class CreateGudangAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gudang_areas');
+        Schema::dropIfExists('item_groups');
     }
 }

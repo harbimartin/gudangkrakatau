@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
 
+use App\Http\Controllers\Controller;
 use App\MasterUnitOfMeasure;
 use App\MasterVariant;
 use App\MVariant;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class MVariantController extends Controller{
+class VariantController extends Controller{
     /**
      * Display an list of the resource.
      *

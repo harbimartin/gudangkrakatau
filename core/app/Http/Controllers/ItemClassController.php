@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Cabang;
+use App\ItemClass;
 use Illuminate\Http\Request;
 
-class CabangController extends Controller
+class ItemClassController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class CabangController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Cabang  $cabang
+     * @param  \App\ItemClass  $itemClass
      * @return \Illuminate\Http\Response
      */
-    public function show(Cabang $cabang)
+    public function show(ItemClass $itemClass)
     {
         //
     }
@@ -52,10 +52,10 @@ class CabangController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cabang  $cabang
+     * @param  \App\ItemClass  $itemClass
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cabang $cabang)
+    public function edit(ItemClass $itemClass)
     {
         //
     }
@@ -64,10 +64,10 @@ class CabangController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cabang  $cabang
+     * @param  \App\ItemClass  $itemClass
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cabang $cabang)
+    public function update(Request $request, ItemClass $itemClass)
     {
         //
     }
@@ -75,10 +75,10 @@ class CabangController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cabang  $cabang
+     * @param  \App\ItemClass  $itemClass
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cabang $cabang)
+    public function destroy(ItemClass $itemClass)
     {
         //
     }

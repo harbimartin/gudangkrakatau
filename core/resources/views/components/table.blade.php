@@ -195,13 +195,21 @@
                         <tr class="text-gray-900 text-xs md:text-sm">
                             @foreach (json_decode($column) as $key => $param)
                                 <td class="@if(!isset($param->sort) && $sort) pr-3 @endisset py-4 px-2 whitespace-nowrap {{isset($param->align) ? 'text-'.$param->align : ($param->type=='State' || $param->type=='Boolean' ||  $param->type=='Edit' ? 'text-center':'') }} @isset($param->if){{($item[$param->if[0]] == $param->if[1]) == $param->if[2] ? '':'hidden'}}@endisset">
-                                    @if($param->type == 'Multi')
+                                    @switch($param->type)
+                                        @case('Multi')
                                         @foreach($param->children as $ckey => $cparam)
                                             <x-tswitch :key="$ckey" :param="$cparam" :item="$item" :idk="$idk" :iind="$iind"></x-tswitch>
-                                        @endforeach
-                                    @else
-                                        <x-tswitch :key="$key" :param="$param" :item="$item" :idk="$idk" :iind="$iind"></x-tswitch>
-                                    @endif
+                                            @endforeach
+                                            @break
+                                        @case('Index')
+                                            <div class="mr-3">
+                                                {{$iind+1}}
+                                            </div>
+                                            @break
+                                        @default
+                                            <x-tswitch :key="$key" :param="$param" :item="$item" :idk="$idk" :iind="$iind"></x-tswitch>
+                                            @break
+                                    @endswitch
                                 </td>
                             @endforeach
                           </tr>

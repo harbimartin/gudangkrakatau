@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMItemUnitsTable extends Migration
+class CreateMItemVariantAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,16 @@ class CreateMItemUnitsTable extends Migration
      * @return void
      */
     public function up(){
-        Schema::create('m_item_units', function (Blueprint $table) {
+        Schema::create('m_item_variant_attributes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('conversion')->default(1);
             $table->unsignedBigInteger('m_item_id');
-            $table->unsignedBigInteger('m_unit_id');
+            $table->unsignedBigInteger('m_attribute_id');
+            $table->unsignedBigInteger('m_uom_id');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
-
-        Schema::table('m_item_units', function (Blueprint $table) {
+        Schema::table('m_item_variant_attributes', function (Blueprint $table) {
             $table->foreign('m_item_id')->references('id')->on('m_items');
-            $table->foreign('m_unit_id')->references('id')->on('m_unit_measures');
         });
     }
 
@@ -33,6 +32,6 @@ class CreateMItemUnitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_units');
+        Schema::dropIfExists('m_item_variant_attributes');
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
 
+use App\Http\Controllers\Controller;
 use App\MasterBrand;
-use App\MBrand;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class MBrandController extends Controller{
+class BrandController extends Controller{
     /**
      * Display an list of the resource.
      *

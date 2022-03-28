@@ -4,8 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EmailSend extends Model
-{
+class EmailSend extends Model{
     public $fillable = [
         'name',
         'receiver',

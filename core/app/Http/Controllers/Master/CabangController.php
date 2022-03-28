@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Cabang;
 use App\Http\Controllers\Controller;
-use App\MasterItem;
-use App\MItem;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ItemController extends Controller{
+class CabangController extends Controller
+{
     /**
-     * Display an list of the resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -19,7 +19,7 @@ class ItemController extends Controller{
         if (!$length = $request->el)
             $length = 10;
         $data = $this->getDataByRequest($request)->paginate($length);;
-        return view('pages.master.item.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
+        return view('pages.master.cabang.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
     }
     /**
      * Function to export excel files.
@@ -36,7 +36,7 @@ class ItemController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function getDataByRequest(Request $request){
-        $paginate = MasterItem::filter($request);
+        $paginate = Cabang::filter($request);
         return $paginate;
     }
 
@@ -56,28 +56,28 @@ class ItemController extends Controller{
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\MItem  $mItem
+     * @param  \App\Cabang  $cabang
      * @return \Illuminate\Http\Response
      */
-    public function show($id){
-        return view('pages.master.item.detail', [ 'data'=>MasterItem::find($id) ]);
+    public function show(Cabang $cabang)
+    {
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\MItem  $mItem
+     * @param  \App\Cabang  $cabang
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cabang $cabang)
     {
         //
     }
@@ -86,21 +86,23 @@ class ItemController extends Controller{
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\MItem  $mItem
+     * @param  \App\Cabang  $cabang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, Cabang $cabang){
+        if ($request->has('toggle')){
+            $cabang->update(['status'=>$request->toggle]);
+        }
+        redirect($request->_last_);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\MItem  $mItem
+     * @param  \App\Cabang  $cabang
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cabang $cabang)
     {
         //
     }

@@ -4,10 +4,18 @@ namespace App;
 
 use Exception;
 use Illuminate\Database\Eloquent\Model;
+/**
+ * AList is a base model which has several attributes to set up Front End function such as : Sort, Search, Filter Value or Date Range.
+ * Indonesia Translate : AList adalah model yang memiliki beberapa attribute untuk mengatur fungsi Front End seperti : Pengurutan, Pencarian, Penjaringan atau Jangka waktu.
+ * @var string $sort_default _column key_ as default sort (created_at usually)
+ * @var string $date_default _column key_ as default date filter (created_at usually)
+ * @var Array $searchable _column key_ with value 0 as first key, and 1 to next key. use array to define relation search
+ * @var Array $sortable column key with null as self attribute, and array to define relation sort
+ */
 
 class AList extends Model{
     public $timestamps = false;
-    protected $filterable = [];
+    protected $searchable = [];
     protected $sortable = [];
     protected $sort_default = 'created_at';
     protected $date_default = 'created';
@@ -48,7 +56,7 @@ class AList extends Model{
         }
         if ($request->sc){
             $val = '%'.$request->sc.'%';
-            foreach($this->filterable as $key => $fkey){
+            foreach($this->searchable as $key => $fkey){
                 if (is_numeric($fkey)){
                     switch($fkey){
                         case 0: // first
@@ -57,8 +65,8 @@ class AList extends Model{
                         case 1: // second
                             $query->orWhere($key, 'like', $val);
                             break;
-                        case 2: // unique
-                            break;
+                        default:
+                            $query = $this->uniqueSearch($query);
                     }
                 }else{
                     $query->orWhereHas($key, function($q)use($fkey,$val){
@@ -69,10 +77,13 @@ class AList extends Model{
         }
         return $query;
     }
-    public static function boot(){
-        parent::boot();
-        static::creating(function ($model) {
-            // $model->budget_status = 'Draft';
-        });
+    protected function uniqueSearch($query){
+        return $query;
     }
+    // public static function boot(){
+    //     parent::boot();
+    //     static::creating(function ($model) {
+    //         $model->budget_status = 'Draft';
+    //     });
+    // }
 }

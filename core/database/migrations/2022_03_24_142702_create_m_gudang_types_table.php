@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGudangsTable extends Migration
+class CreateMGudangTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateGudangsTable extends Migration
      */
     public function up()
     {
-        Schema::create('gudangs', function (Blueprint $table) {
+        Schema::create('m_gudang_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('desc');
-            $table->unsignedBigInteger('cabang_id');
+            $table->boolean('status')->default(false);
             $table->timestamps();
-        });
-        Schema::table('gudangs', function (Blueprint $table) {
-            $table->foreign('cabang_id')->references('id')->on('gudangs');
         });
     }
 
@@ -32,6 +29,6 @@ class CreateGudangsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gudangs');
+        Schema::dropIfExists('gudang_types');
     }
 }
