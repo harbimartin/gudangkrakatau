@@ -91,7 +91,7 @@ class CabangController extends Controller
      */
     public function update(Request $request, Cabang $cabang){
         if ($request->has('toggle')){
-            $cabang->update(['status'=>$request->toggle]);
+            $cabang->update(['status'=> $request->toggle]);
         }
         return redirect($request->_last_);
     }

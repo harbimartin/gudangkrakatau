@@ -125,8 +125,8 @@
             @csrf
             @method('PUT')
             <input hidden name="_last_" value="{{request()->fullUrl()}}">
-            <input id="{{$key}}" name="{{$key}}" value="{{$item[$key]?0:1}}" hidden>
-            <button type="submit" class="text-indigo-600 hover:text-indigo-900">{{$item[$key] ? 'Nonaktifkan' : 'Aktifkan'}}</button>
+            <input id="{{$key}}" name="{{$key}}" value="{{$item[$param->by]?0:1}}" hidden>
+            <button type="submit" class="text-indigo-600 hover:text-indigo-900">{{$item[$param->by] ? 'Nonaktifkan' : 'Aktifkan'}}</button>
         </form>
         @break
     @case('No')
