@@ -6,7 +6,7 @@
             'name'=>[ 'name'=>"Nama", 'type'=>"String"],
             'desc'=>[ 'name'=>"Deskripsi", 'type'=>"String"],
             'status'=>[ 'name'=>"Status", 'type'=>"State" ],
-            'toggle'=>[ 'name'=>"Aktifkan", 'type'=>'Toggle', 'sort'=>false, 'align'=>'center'],
+            'toggle'=>[ 'by'=>'status', 'name'=>"Aktifkan", 'type'=>'Toggle', 'sort'=>false, 'align'=>'center'],
             'act'=>[ 'name'=>"Action", 'type' => 'Edit', 'align'=>'center', 'sort'=>false]
         ]);
     ?>
