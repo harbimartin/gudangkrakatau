@@ -18,12 +18,12 @@ class Cabang extends AList{
         'created_at'=>null,
         'updated_at'=>null
     ];
-    protected $filterable = [
+    protected $searchable = [
         'name'=>0,
         'status'=>1,
         'desc'=>1,
         'created_at'=>1,
         'updated_at'=>1
     ];
-    
+
 }

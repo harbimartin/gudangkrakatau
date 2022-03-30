@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class BrandController extends Controller{
     /**
-     * Display an list of the resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -55,28 +55,28 @@ class BrandController extends Controller{
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\MBrand  $mBrand
+     * @param  \App\MasterBrand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function show($id){
-        return view('pages.master.brand.detail', [ 'data'=>MasterBrand::find($id) ]);
+    public function show(MasterBrand $brand)
+    {
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\MBrand  $mBrand
+     * @param  \App\MasterBrand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(MasterBrand $brand)
     {
         //
     }
@@ -85,21 +85,23 @@ class BrandController extends Controller{
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\MBrand  $mBrand
+     * @param  \App\MasterBrand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, MasterBrand $brand){
+        if ($request->has('toggle')){
+            $brand->update(['status'=> $request->toggle]);
+        }
+        return redirect($request->_last_);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\MBrand  $mBrand
+     * @param  \App\MasterBrand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(MasterBrand $brand)
     {
         //
     }

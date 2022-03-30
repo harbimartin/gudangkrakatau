@@ -15,6 +15,7 @@ class MasterUnitOfMeasure extends AList{
     protected $sortable = [
         'code'=>null,
         'status'=>null,
+        'decimal'=>null,
         'created_at'=>null,
         'updated_at'=>null
     ];
@@ -22,7 +23,6 @@ class MasterUnitOfMeasure extends AList{
         'code'=>0,
         'status'=>1,
         'desc'=>1,
-        'created_at'=>1,
-        'updated_at'=>1
+        'decimal'=>1
     ];
 }

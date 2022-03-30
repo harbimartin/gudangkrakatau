@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class UnitMeasureController extends Controller{
     /**
-     * Display an list of the resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -19,7 +19,7 @@ class UnitMeasureController extends Controller{
         if (!$length = $request->el)
             $length = 10;
         $data = $this->getDataByRequest($request)->paginate($length);;
-        return view('pages.master.brand.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
+        return view('pages.master.uom.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
     }
     /**
      * Function to export excel files.
@@ -56,28 +56,28 @@ class UnitMeasureController extends Controller{
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\MUnitMeasure  $mUnitMeasure
+     * @param  \App\MasterUnitOfMeasure  $uom
      * @return \Illuminate\Http\Response
      */
-    public function show($id){
-        return view('pages.master.uom.detail', [ 'data'=>MasterUnitOfMeasure::find($id) ]);
+    public function show(MasterUnitOfMeasure $uom)
+    {
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\MUnitMeasure  $mUnitMeasure
+     * @param  \App\MasterUnitOfMeasure  $uom
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(MasterUnitOfMeasure $uom)
     {
         //
     }
@@ -86,21 +86,23 @@ class UnitMeasureController extends Controller{
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\MUnitMeasure  $mUnitMeasure
+     * @param  \App\MasterUnitOfMeasure  $uom
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, MasterUnitOfMeasure $uom){
+        if ($request->has('toggle')){
+            $uom->update(['status'=> $request->toggle]);
+        }
+        return redirect($request->_last_);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\MUnitMeasure  $mUnitMeasure
+     * @param  \App\MasterUnitOfMeasure  $uom
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(MasterUnitOfMeasure $uom)
     {
         //
     }

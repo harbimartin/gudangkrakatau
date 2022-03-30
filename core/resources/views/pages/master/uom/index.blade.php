@@ -3,9 +3,11 @@
     <?php
         $column_table = json_encode([
             'id'=>[ 'name'=>"No", 'type'=>"Index" ],
-            'unit'=>[ 'name'=>"Name", 'type'=>"String" ],
-            'desc'=>[ 'name'=>"Capacity", 'type'=>"List" ],
+            'code'=>[ 'name'=>"Code", 'type'=>"String" ],
+            'desc'=>[ 'name'=>"Name", 'type'=>"String" ],
+            'decimal'=>[ 'name'=>"Decimal (Rasio from Base)", 'type'=>"Number", 'decimal'=>'10'],
             'status' => [ 'name'=>"Status", 'type'=>"State" ],
+            'toggle'=>[ 'by'=>'status', 'name'=>"Aktifkan", 'type'=>'Toggle', 'sort'=>false, 'align'=>'center'],
             'acts'=>[ 'name'=>"Action", 'type' => 'Edit', 'align'=>'center', 'sort'=>false]
         ]);
     ?>

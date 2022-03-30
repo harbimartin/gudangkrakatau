@@ -16,7 +16,7 @@
       input.hide-ico::-webkit-calendar-picker-indicator {
         display: none !important;
       }
-      input[onblank]::placeholder{
+      input[onblank]::placeholder {
           color:black;
       }
       .bg-sky-500{

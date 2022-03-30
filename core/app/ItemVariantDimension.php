@@ -16,7 +16,7 @@ class ItemVariantDimensions extends AList{
         'created_at'=>null,
         'updated_at'=>null
     ];
-    protected $filterable = [
+    protected $searchable = [
         'lebar'=> 0,
         'tinggi'=> 1,
         'status'=> 1,

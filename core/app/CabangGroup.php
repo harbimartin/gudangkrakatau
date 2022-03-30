@@ -15,7 +15,7 @@ class CabangGroup extends AList{
         'created_at'=>null,
         'updated_at'=>null
     ];
-    protected $filterable = [
+    protected $searchable = [
         'status'=>0,
         'created_at'=>1,
         'updated_at'=>1

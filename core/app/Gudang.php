@@ -23,7 +23,7 @@ class Gudang extends AList{
         'created_at'=>null,
         'updated_at'=>null
     ];
-    protected $filterable = [
+    protected $searchable = [
         'name' => 0,
         'desc' => 1,
         'kota' => 1,

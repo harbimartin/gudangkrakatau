@@ -14,7 +14,7 @@ class EmailSend extends Model{
         'error',
         'status',
     ];
-    protected $filterable = [
+    protected $searchable = [
         'name'=>0,
         'receiver'=>1,
         'title'=>1,
@@ -46,7 +46,7 @@ class EmailSend extends Model{
 
         if ($request->sc){
             $val = '%'.$request->sc.'%';
-            foreach($this->filterable as $key => $fkey){
+            foreach($this->searchable as $key => $fkey){
                 if (is_numeric($fkey)){
                     if($fkey)
                         $query->orWhere($key, 'like', $val);

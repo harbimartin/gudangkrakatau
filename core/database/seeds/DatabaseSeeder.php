@@ -89,11 +89,6 @@ class DatabaseSeeder extends Seeder
             'icon' => 1
         ],[
             'parent' => 2,
-            'key' => 'variant',
-            'name' => 'Variant',
-            'icon' => 1
-        ],[
-            'parent' => 2,
             'key' => 'uom',
             'name' => 'Unit of Measure',
             'icon' => 1
@@ -274,7 +269,7 @@ class DatabaseSeeder extends Seeder
             array_push($record, [
                 'code' => $p['prefix'].'m',
                 'decimal' => pow(10, $p['power']),
-                'desc' => ucfirst($p['prefix'].'metre'),
+                'desc' => ucfirst($p['desc'].'metre'),
                 'group_id' => Length,
                 'status' => 1
             ]);
@@ -284,7 +279,7 @@ class DatabaseSeeder extends Seeder
             array_push($record, [
                 'code' => $p['prefix'].'B',
                 'decimal' => pow(1000, $p['power']),
-                'desc' => ucfirst($p['prefix'].'byte'),
+                'desc' => ucfirst($p['desc'].'byte'),
                 'group_id' => Digital,
                 'status' => 1
             ]);
@@ -293,7 +288,7 @@ class DatabaseSeeder extends Seeder
             array_push($record, [
                 'code' => $p['prefix'].'B',
                 'decimal' => pow(1000, $p['power']),
-                'desc' => ucfirst(substr($p['prefix'], 0, -2).'bibyte'),
+                'desc' => ucfirst(substr($p['desc'], 0, -2).'bibyte'),
                 'group_id' => Digital,
                 'status' => 1
             ]);
@@ -303,13 +298,13 @@ class DatabaseSeeder extends Seeder
             array_push($record, [
                 'code' => $p['prefix'].'g',
                 'decimal' => pow(10, $p['power']),
-                'desc' => ucfirst($p['prefix'].'gram'),
+                'desc' => ucfirst($p['desc'].'gram'),
                 'group_id' => Mass,
                 'status' => 1
             ]);
         }
         // Time
-        array_merge($record, array([
+        $record = array_merge($record, array([
                 'code' => 'μ',
                 'decimal' => 0.001,
                 'desc' => 'Micro Second',
@@ -348,7 +343,7 @@ class DatabaseSeeder extends Seeder
             ]
         ));
         // Temperature
-        array_merge($record, array([
+        $record = array_merge($record, array([
                 'code' => 'K',
                 'decimal' => 0,
                 'desc' => 'Kelvin',
@@ -373,7 +368,7 @@ class DatabaseSeeder extends Seeder
             array_push($record, [
                 'code' => $p['prefix'].'A',
                 'decimal' => pow(1000, $p['power']),
-                'desc' => ucfirst($p['prefix'].'ampere'),
+                'desc' => ucfirst($p['desc'].'ampere'),
                 'group_id' => Current,
                 'status' => 1
             ]);
@@ -383,7 +378,7 @@ class DatabaseSeeder extends Seeder
             array_push($record, [
                 'code' => $p['prefix'].'V',
                 'decimal' => pow(1000, $p['power']),
-                'desc' => ucfirst($p['prefix'].'volt'),
+                'desc' => ucfirst($p['desc'].'volt'),
                 'group_id' => Voltage,
                 'status' => 1
             ]);
@@ -394,12 +389,12 @@ class DatabaseSeeder extends Seeder
                 array_push($record, [
                     'code' => $p['prefix'].'m²',
                     'decimal' => pow(10, $p['power']*2),
-                    'desc' => 'Square '.ucfirst($p['prefix'].'meter'),
+                    'desc' => 'Square '.ucfirst($p['desc'].'meter'),
                     'group_id' => Area,
                     'status' => 1
                 ]);
         }
-        array_merge($record, array([
+        $record = array_merge($record, array([
             'code' => 'ha',
             'decimal' => 10000,
             'desc' => 'Hectare',
@@ -418,12 +413,12 @@ class DatabaseSeeder extends Seeder
                 array_push($record, [
                     'code' => $p['prefix'].'m³',
                     'decimal' => pow(10, $p['power']*3),
-                    'desc' => "Cubic ".ucfirst($p['prefix'].'metre'),
+                    'desc' => "Cubic ".ucfirst($p['desc'].'metre'),
                     'group_id' => Volume,
                     'status' => 1
                 ]);
         }
-        array_merge($record, array([
+        $record = array_merge($record, array([
                 'code' => 'cc',
                 'desc' => 'Cubic Centimetre',
                 'decimal' => 1,
@@ -480,7 +475,7 @@ class DatabaseSeeder extends Seeder
             ]
         ));
         // Luminous
-        array_merge($record, array([
+        $record = array_merge($record, array([
                 'code' => 'lm.s',
                 'decimal' => 1,
                 'desc' => "Lumen Second",
@@ -513,52 +508,61 @@ class DatabaseSeeder extends Seeder
             ]
         ));
         // Sales
-        array_merge($record, array([
+        $record = array_merge($record, array([
                 'code' => 'Pack',
                 'decimal' => 0,
+                'desc' => 'Pack',
                 'group_id' => Sales,
                 'status' => 1
             ],[
                 'code' => '6Pack',
                 'decimal' => 0,
+                'desc' => '6Pack',
                 'group_id' => Sales,
                 'status' => 1
             ],[
                 'code' => 'Carton',
                 'decimal' => 0,
+                'desc' => 'Carton',
                 'group_id' => Sales,
                 'status' => 1
             ],[
                 'code' => 'Pallet',
                 'decimal' => 0,
+                'desc' => 'Pallet',
                 'group_id' => Sales,
                 'status' => 1
             ],[
                 'code' => 'SmlPack',
                 'decimal' => 0,
+                'desc' => 'SmlPack',
                 'group_id' => Sales,
                 'status' => 1
             ]
         ));
         // Package
-        array_merge($record, array([
+        $record = array_merge($record, array([
                 'code' => 'Box',
                 'decimal' => 0,
+                'desc' => 'Box',
                 'group_id' => Package,
                 'status' => 1
             ],[
                 'code' => 'Pallet',
                 'decimal' => 0,
+                'desc' => 'Pallet',
                 'group_id' => Package,
                 'status' => 1
             ],[
                 'code' => 'Container',
                 'decimal' => 0,
+                'desc' => 'Container',
                 'group_id' => Package,
                 'status' => 1
             ],[
                 'code' => 'Barrel',
                 'decimal' => 0,
+                'desc' => 'Barrel',
                 'group_id' => Package,
                 'status' => 1
             ]

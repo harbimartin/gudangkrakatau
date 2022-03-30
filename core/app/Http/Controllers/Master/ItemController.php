@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\MasterItem;
-use App\MItem;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ItemController extends Controller{
     /**
-     * Display an list of the resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -56,28 +55,28 @@ class ItemController extends Controller{
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\MItem  $mItem
+     * @param  \App\MasterItem  $item
      * @return \Illuminate\Http\Response
      */
-    public function show($id){
-        return view('pages.master.item.detail', [ 'data'=>MasterItem::find($id) ]);
+    public function show(MasterItem $item)
+    {
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\MItem  $mItem
+     * @param  \App\MasterItem  $item
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(MasterItem $item)
     {
         //
     }
@@ -86,21 +85,23 @@ class ItemController extends Controller{
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\MItem  $mItem
+     * @param  \App\MasterItem  $item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, MasterItem $item){
+        if ($request->has('toggle')){
+            $item->update(['status'=> $request->toggle]);
+        }
+        return redirect($request->_last_);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\MItem  $mItem
+     * @param  \App\MasterItem  $item
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(MasterItem $item)
     {
         //
     }

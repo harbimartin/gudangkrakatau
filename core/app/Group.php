@@ -16,7 +16,7 @@ class Group extends AList
         'created_at'=>null,
         'updated_at'=>null
     ];
-    protected $filterable = [
+    protected $searchable = [
         'name'=>0,
         'status'=>1,
         'desc'=>1,

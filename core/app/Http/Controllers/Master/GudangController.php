@@ -1,20 +1,42 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
 
 use App\Gudang;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
-class GudangController extends Controller
-{
+class GudangController extends Controller{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(Request $request){
+        $error = $this->err_get('error');
+        if (!$length = $request->el)
+            $length = 10;
+        $data = $this->getDataByRequest($request)->paginate($length);;
+        return view('pages.master.gudang.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
+    }
+    /**
+     * Function to export excel files.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function export(Request $request){
+        return Excel::download($this->getDataByRequest($request)->get(), 'MRA_OVERVIEW_'.date("YmdHis").'.xlsx');
+    }
+
+    /**
+     * Function to get MasterBillOfMaterial list
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getDataByRequest(Request $request){
+        $paginate = Gudang::filter($request);
+        return $paginate;
     }
 
     /**
@@ -33,8 +55,7 @@ class GudangController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         //
     }
 
@@ -67,9 +88,11 @@ class GudangController extends Controller
      * @param  \App\Gudang  $gudang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Gudang $gudang)
-    {
-        //
+    public function update(Request $request, Gudang $gudang){
+        if ($request->has('toggle')){
+            $gudang->update(['status'=> $request->toggle]);
+        }
+        return redirect($request->_last_);
     }
 
     /**
