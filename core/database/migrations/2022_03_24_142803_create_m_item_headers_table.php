@@ -11,19 +11,19 @@ class CreateMItemHeadersTable extends Migration{
      * @return void
      */
     public function up(){
-        Schema::create('m_item_headers', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('group_id');
-            $table->unsignedBigInteger('classification_id');
-            $table->string('desc');
-            $table->boolean('status');
-            $table->timestamps();
-        });
-        Schema::table('m_item_headers', function (Blueprint $table) {
-            $table->foreign('group_id')->references('id')->on('m_item_groups');
-            $table->foreign('classification_id')->references('id')->on('m_item_classifications');
-        });
+        // Schema::create('m_item_headers', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('name');
+        //     $table->unsignedBigInteger('group_id');
+        //     $table->unsignedBigInteger('classification_id');
+        //     $table->string('desc');
+        //     $table->boolean('status');
+        //     $table->timestamps();
+        // });
+        // Schema::table('m_item_headers', function (Blueprint $table) {
+        //     $table->foreign('group_id')->references('id')->on('m_item_groups');
+        //     $table->foreign('classification_id')->references('id')->on('m_item_classifications');
+        // });
     }
 
     /**
@@ -33,6 +33,6 @@ class CreateMItemHeadersTable extends Migration{
      */
     public function down()
     {
-        Schema::dropIfExists('m_items');
+        // Schema::dropIfExists('m_item_headers');
     }
 }

@@ -14,14 +14,17 @@ class CreateMItemsTable extends Migration
     public function up(){
         Schema::create('m_items', function (Blueprint $table){
             $table->id();
-            $table->unsignedBigInteger('m_item_id');
-            $table->unsignedBigInteger('variant');
+            $table->string('name');
+            $table->unsignedBigInteger('group_id');
+            $table->unsignedBigInteger('classification_id');
+            $table->string('desc');
+            $table->boolean('status');
             $table->char('upc',16);
             $table->timestamps();
         });
-        Schema::table('m_items', function (Blueprint $table){
-            $table->foreign('m_item_id')->references('id')->on('m_item_headers');
-        });
+        // Schema::table('m_items', function (Blueprint $table){
+        //     $table->foreign('m_item_id')->references('id')->on('m_item_headers');
+        // });
     }
 
     /**

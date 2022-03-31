@@ -11,17 +11,17 @@ class CreateMItemAttributeValuesTable extends Migration {
      * @return void
      */
     public function up(){
-        Schema::create('m_item_attributes_values', function (Blueprint $table){
-            $table->id();
-            $table->unsignedBigInteger('m_item_attr_id');
-            $table->unsignedBigInteger('m_attr_value_id');
-            $table->unsignedSmallInteger('variant');
-            $table->timestamps();
-        });
-        Schema::table('m_item_attributes_values', function (Blueprint $table){
-            $table->foreign('m_item_attr_id')->references('id')->on('m_item_attributes');
-            $table->foreign('m_attr_value_id')->references('id')->on('m_attribute_values');
-        });
+        // Schema::create('m_item_attributes_values', function (Blueprint $table){
+        //     $table->id();
+        //     $table->unsignedBigInteger('m_item_attr_id');
+        //     $table->unsignedBigInteger('m_attr_value_id');
+        //     $table->unsignedSmallInteger('variant');
+        //     $table->timestamps();
+        // });
+        // Schema::table('m_item_attributes_values', function (Blueprint $table){
+        //     $table->foreign('m_item_attr_id')->references('id')->on('m_item_attributes');
+        //     $table->foreign('m_attr_value_id')->references('id')->on('m_attribute_values');
+        // });
     }
 
     /**
@@ -31,6 +31,6 @@ class CreateMItemAttributeValuesTable extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('m_item_variant_attributes');
+        // Schema::dropIfExists('m_item_variant_attributes');
     }
 }
