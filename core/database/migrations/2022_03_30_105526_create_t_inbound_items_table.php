@@ -14,13 +14,13 @@ class CreateTInboundItemsTable extends Migration
     public function up(){
         Schema::create('t_inbound_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('header_id');
             $table->unsignedBigInteger('m_item_id');
-            $table->unsignedBigInteger('m_');
             $table->unsignedMediumInteger('quantity');
             $table->unsignedMediumInteger('note');
-            // $table->unsignedMediumInteger('batch_number');
             $table->timestamps();
+        });
+        Schema::table('t_inbound_items', function (Blueprint $table) {
+            $table->foreign('m_item_id')->references('id')->on('m_gudangs');
         });
     }
 

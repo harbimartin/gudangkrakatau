@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMAsalsTable extends Migration {
+class CreateMAngkutanGroupsTable extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,10 +13,11 @@ class CreateMAsalsTable extends Migration {
      */
     public function up()
     {
-        Schema::create('m_asals', function (Blueprint $table) {
+        Schema::create('m_angkutan_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('desc')->default('');
+            $table->char('code',12);
+            $table->string('desc')->default('-');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });
@@ -28,6 +30,6 @@ class CreateMAsalsTable extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('asals');
+        Schema::dropIfExists('m_angkutan_groups');
     }
 }

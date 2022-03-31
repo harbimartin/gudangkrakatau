@@ -19,7 +19,7 @@ class CreateTInboundHeadersTable extends Migration
             $table->string('code');
             $table->unsignedBigInteger('m_angkutan_id');
             $table->unsignedBigInteger('receive_by');
-            $table->varchar('note',512);
+            $table->string('note',512);
             $table->string('supir');
             $table->unsignedBigInteger('m_asal_id');
             $table->datetime('receive_at');
