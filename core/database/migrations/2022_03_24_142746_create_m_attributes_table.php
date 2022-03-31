@@ -4,19 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMBrandsTable extends Migration
-{
+class CreateMAttributesTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
     public function up(){
-        Schema::create('m_brands', function (Blueprint $table) {
+        Schema::create('m_attributes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('desc');
-            $table->boolean('status')->default(false);
+            $table->unsignedBigInteger('m_uom_group_id');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateMBrandsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('m_brands');
+        Schema::dropIfExists('m_attributes');
     }
 }

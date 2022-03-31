@@ -11,8 +11,7 @@ class CreateMUnitGroupsTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
+    public function up(){
         Schema::create('m_unit_groups', function (Blueprint $table) {
             $table->id();
             $table->char('name', 10);

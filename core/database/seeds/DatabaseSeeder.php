@@ -13,8 +13,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Current;
 
-class DatabaseSeeder extends Seeder
-{
+class DatabaseSeeder extends Seeder{
     /**
      * Seed the application's database.
      *
@@ -45,12 +44,12 @@ class DatabaseSeeder extends Seeder
         Menu::insert(array([
             'parent' => null,
             'key' => 'man',
-            'name' => 'Management',
+            'name' => 'Manajemen',
             'icon' => 0
         ],[
             'parent' => null,
             'key' => 'master',
-            'name' => 'Master Data',
+            'name' => 'Data Master',
             'icon' => 0
         ],[
             'parent' => 1,
@@ -65,7 +64,7 @@ class DatabaseSeeder extends Seeder
         ],[
             'parent' => 1,
             'key' => 'group',
-            'name' => 'Group',
+            'name' => 'Grup',
             'icon' => 1
         ],[
             'parent' => 2,
@@ -80,7 +79,7 @@ class DatabaseSeeder extends Seeder
         ],[
             'parent' => 2,
             'key' => 'brand',
-            'name' => 'Brand',
+            'name' => 'Merek',
             'icon' => 1
         ],[
             'parent' => 2,
@@ -90,15 +89,39 @@ class DatabaseSeeder extends Seeder
         ],[
             'parent' => 2,
             'key' => 'uom',
-            'name' => 'Unit of Measure',
+            'name' => 'Satuan',
             'icon' => 1
+        ],[
+            'parent' => null,
+            'key' => 'inbound',
+            'name' => 'Pemasukan',
+            'icon' => 0
+        ],[
+            'parent' => null,
+            'key' => 'crossdock',
+            'name' => 'Pemindahan',
+            'icon' => 0
+        ],[
+            'parent' => null,
+            'key' => 'outbound',
+            'name' => 'Pengeluaran',
+            'icon' => 0
+        ],[
+            'parent' => null,
+            'key' => 'assemble',
+            'name' => 'Perakitan',
+            'icon' => 0
+        ],[
+            'parent' => null,
+            'key' => 'disassemble',
+            'name' => 'Pembongkaran',
+            'icon' => 0
         ]));
 
         CabangGroupMenu::insert(array([
             'm_cabang_group_id' => 1,
             'm_menu_id' => 1
         ]));
-
 
         define('Length',1);
         define('Mass',2);
