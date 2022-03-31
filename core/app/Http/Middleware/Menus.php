@@ -22,22 +22,20 @@ class Menus
             $data[$key]['name'] = $value->name;
             $data[$key]['key'] = $value->key;
             $data[$key]['icon'] = $value->icon;
-            $data[$key]['status'] =0;
             if ($value->parent()->count() > 0) {
                 $data[$key]['children']= $this->children($value, $key);
             }
-
         }
         \Session::put('menu', $data);
         return $next($request);
     }
-    public function children($value, $key){
+    public function children($value){
         foreach($value->parent()->get() as $ky => $val ){
             $data[$ky]['name'] = $val->name;
             $data[$ky]['key'] = $val->key;
             $data[$ky]['icon'] = $val->icon;
             if ($val->parent()->count() > 0) {
-                $data[$ky]['child'] = $this->children($val, $ky);
+                $data[$ky]['children'] = $this->children($val, $ky);
             }
         }
         return $data;
