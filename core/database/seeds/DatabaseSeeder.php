@@ -78,18 +78,18 @@ class DatabaseSeeder extends Seeder{
             'icon' => 1
         ],[
             'parent' => 2,
-            'key' => 'brand',
-            'name' => 'Merek',
-            'icon' => 1
-        ],[
-            'parent' => 2,
-            'key' => 'item',
-            'name' => 'Item',
+            'key' => 'igroup',
+            'name' => 'Jenis Barang',
             'icon' => 1
         ],[
             'parent' => 2,
             'key' => 'uom',
             'name' => 'Satuan',
+            'icon' => 1
+        ],[
+            'parent' => 2,
+            'key' => 'transport',
+            'name' => 'Angkutan',
             'icon' => 1
         ],[
             'parent' => null,

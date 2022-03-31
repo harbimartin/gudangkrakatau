@@ -175,15 +175,10 @@
                     </a>
 
                     <?php
-                        $sel_tab = '';
-                        //  if (isset($on) && $on==$kchild){
-                            //      $sel_tab = $menu['key'];
-                            //      $onm = true;
-                            //  }else
-                            //     $onm = false
+                        $sel_tab = isset($on) ? $on : '';
                     ?>
                     @foreach ($menus as $menu)
-                        <x-sub-menu :menu="$menu"></x-sub-menu>
+                        <x-sub-menu :menu="$menu" :on="$sel_tab"></x-sub-menu>
 
                         {{-- <a @isset($menu['children']) v-on:click="showTab('{{$menu['key']}}')" @else href="{{ url('/'.$menu['key']) }}" @endisset>
                             <div class="inline-flex w-full px-3 py-2.5 cursor-pointer {{isset($on) && $on==$menu['key'] ? 'bg-blue-100 hover:bg-blue-200' : 'hover:bg-gray-100 '}}">

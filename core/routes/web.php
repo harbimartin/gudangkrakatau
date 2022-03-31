@@ -18,6 +18,9 @@ Route::middleware(['auth','menu'])->group(function () {
         Route::resource('/gudang', 'Master\GudangController');
         Route::resource('/brand', 'Master\BrandController');
         Route::resource('/item', 'Master\ItemController');
+        Route::resource('/transport', 'Master\TransportController');
+        Route::resource('/transgroup', 'Master\TransportGroupController');
+        Route::resource('/inbound', 'InboundController');
         Route::get('/home', 'ViewController@home')->name('home');
 });
 Route::resource('/login', 'AuthController')->name('index', 'login');

@@ -17,7 +17,7 @@ class CreateTInboundHeadersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('m_gudang_id');
             $table->string('code');
-            $table->unsignedBigInteger('m_angkutan_id');
+            $table->unsignedBigInteger('m_transport_id');
             $table->unsignedBigInteger('receive_by');
             $table->string('note',512);
             $table->string('supir');
@@ -27,7 +27,7 @@ class CreateTInboundHeadersTable extends Migration
         });
         Schema::table('t_inbound_headers', function (Blueprint $table) {
             $table->foreign('m_gudang_id')->references('id')->on('m_gudangs');
-            $table->foreign('m_angkutan_id')->references('id')->on('m_angkutans');
+            $table->foreign('m_transport_id')->references('id')->on('m_transports');
             $table->foreign('m_asal_id')->references('id')->on('m_asals');
         });
     }

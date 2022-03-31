@@ -8,14 +8,16 @@ class SubMenu extends Component{
     public $menu;
     public $ico = [ 'menu_data.png', 'menu_data.png' ];
     public $margin;
+    public $on;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($menu, $margin = 3){
+    public function __construct($menu, $margin = 3, $on = null){
         $this->menu = $menu;
         $this->margin = $margin;
+        $this->on = $on;
     }
 
     /**

@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\MAngkutanGroup;
 use Illuminate\Http\Request;
 
-class MAngkutanGroupController extends Controller
+class InboundController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(){
+        return view('pages.inbound.index', [ ]);
     }
 
     /**
@@ -41,10 +39,10 @@ class MAngkutanGroupController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\MAngkutanGroup  $mAngkutanGroup
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(MAngkutanGroup $mAngkutanGroup)
+    public function show($id)
     {
         //
     }
@@ -52,10 +50,10 @@ class MAngkutanGroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\MAngkutanGroup  $mAngkutanGroup
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(MAngkutanGroup $mAngkutanGroup)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +62,10 @@ class MAngkutanGroupController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\MAngkutanGroup  $mAngkutanGroup
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MAngkutanGroup $mAngkutanGroup)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +73,10 @@ class MAngkutanGroupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\MAngkutanGroup  $mAngkutanGroup
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MAngkutanGroup $mAngkutanGroup)
+    public function destroy($id)
     {
         //
     }

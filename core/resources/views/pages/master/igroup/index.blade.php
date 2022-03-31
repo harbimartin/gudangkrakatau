@@ -1,11 +1,11 @@
-@extends('index', ['on'=>'cabang'])
+@extends('index', ['on'=>'brand'])
 @section('content')
     <?php
         $column_table = json_encode([
-            'id'=>[ 'name'=>"No", 'type'=>"Index", 'align'=>'center'],
-            'name'=>[ 'name'=>"Nama", 'type'=>"String"],
-            'desc'=>[ 'name'=>"Deskripsi", 'type'=>"String"],
-            'status'=>[ 'name'=>"Status", 'type'=>"State" ],
+            'id'=>[ 'name'=>"No", 'type'=>"Index"],
+            'name'=>[ 'name'=>"Name", 'type'=>"String"],
+            'code'=>[ 'name'=>"Code", 'type'=>"String"],
+            'status' => [ 'name'=>"Status", 'type'=>"State" ],
             'toggle'=>[ 'by'=>'status', 'name'=>"Aktifkan", 'type'=>'Toggle', 'sort'=>false, 'align'=>'center'],
             'act'=>[ 'name'=>"Action", 'type' => 'Edit', 'align'=>'center', 'sort'=>false]
         ]);

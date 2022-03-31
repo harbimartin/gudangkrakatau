@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMAngkutanGroupsTable extends Migration
+class CreateMTransportGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMAngkutanGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('m_angkutan_groups', function (Blueprint $table) {
+        Schema::create('m_transport_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->char('code',12);
@@ -30,6 +30,6 @@ class CreateMAngkutanGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('m_angkutan_groups');
+        Schema::dropIfExists('m_transport_groups');
     }
 }

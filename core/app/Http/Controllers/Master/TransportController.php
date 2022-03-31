@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
-use App\UserGroup;
+use App\MasterTransport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class UserGroupController extends Controller{
+class TransportController extends Controller{
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +18,7 @@ class UserGroupController extends Controller{
         if (!$length = $request->el)
             $length = 10;
         $data = $this->getDataByRequest($request)->paginate($length);;
-        return view('pages.management.user-man.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
+        return view('pages.master.transport.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
     }
     /**
      * Function to export excel files.
@@ -35,7 +35,7 @@ class UserGroupController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function getDataByRequest(Request $request){
-        $paginate = UserGroup::filter($request);
+        $paginate = MasterTransport::filter($request);
         return $paginate;
     }
 
@@ -62,10 +62,10 @@ class UserGroupController extends Controller{
     /**
      * Display the specified resource.
      *
-     * @param  \App\UserGroup  $item
+     * @param  \App\MasterTransport  $uom
      * @return \Illuminate\Http\Response
      */
-    public function show(UserGroup $item)
+    public function show(MasterTransport $uom)
     {
         //
     }
@@ -73,10 +73,10 @@ class UserGroupController extends Controller{
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\UserGroup  $item
+     * @param  \App\MasterTransport  $uom
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserGroup $item)
+    public function edit(MasterTransport $uom)
     {
         //
     }
@@ -85,12 +85,12 @@ class UserGroupController extends Controller{
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\UserGroup  $item
+     * @param  \App\MasterTransport  $uom
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserGroup $item){
+    public function update(Request $request, MasterTransport $uom){
         if ($request->has('toggle')){
-            $item->update(['status'=> $request->toggle]);
+            $uom->update(['status'=> $request->toggle]);
         }
         return redirect($request->_last_);
     }
@@ -98,10 +98,10 @@ class UserGroupController extends Controller{
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\UserGroup  $item
+     * @param  \App\MasterTransport  $uom
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserGroup $item)
+    public function destroy(MasterTransport $uom)
     {
         //
     }

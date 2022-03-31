@@ -7,6 +7,7 @@ namespace App;
  */
 class Gudang extends AList{
     public $guarded = [];
+    protected $table = 'm_gudangs';
     protected $sort_default = 'created_at';
     protected $date_default = 'created_at';
     protected $sortable = [

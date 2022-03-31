@@ -18,37 +18,7 @@ var vue = new Vue({
         onPopup : false,
         form : {},
         select : undefined,
-        tmenu : "{{$sel_tab}}",
-        @isset($chatAble)
-        textSize : 0,
-        userSize : 1,
-        ableSend : false,
-        canScroll : true,
-        sendingChat : false,
-        chatError : '',
-        replyTo : undefined,
-        tuser : {{sizeof($approver['user'])}},
-        cuser : {
-                {{$data->proposed_u->user_id}} : {
-                    posid : {{$data->proposed_by}},
-                    name : "{{$data->proposed_u->NAME}}",
-                    pos : "{{$data->proposed_u->position_name}}",
-                    col : "{{array_pop($colors)}}",
-                    you : {{$_SESSION['ebudget_id']==$data->proposed_u->user_id ? 'true':'false'}},
-                    off : false
-                },
-            @foreach($approver['user'] as $user)
-                {{$user['user_id']}} : {
-                    posid : {{$user['user']['id']}},
-                    name : "{{$user['user']['NAME']}}",
-                    pos : "{{$user['user']['position_name']}}",
-                    col : "{{array_pop($colors)}}",
-                    you : {{$_SESSION['ebudget_id']==$user['user_id'] ? 'true':'false'}},
-                    off : false
-                },
-            @endforeach
-        },
-        @endisset
+        tmenu : {},
         files : {
             @isset($hasFile)
                 rab : [
@@ -90,41 +60,22 @@ var vue = new Vue({
             @endisset
         ]
     },
-    @isset($chatAble)
     created(){
-        setTimeout(() => {
-            const cm = document.getElementById('chat-main');
-            cm.scrollTop = cm.scrollHeight;
-        }, 100);
-        this.chats = [
-            @foreach($data->chat as $chat)
-                {
-                    id : "{{$chat->id}}",
-                    user : this.cuser[{{$chat->created_by}}],
-                    msg : "{{$chat->message}}",
-                    date : "{{$chat->tgl_chat}}",
-                    stat : [
-                        @foreach($chat->stat as $stat)
-                            {
-                                user : this.cuser[{{$stat->user_id}}],
-                                tgl_read : "{{$stat->tgl_read}}"
-                            },
-                        @endforeach
-                    ],
-                    @if($chat->reference_id)
-                        refs : {
-                            id : "{{$chat->refs['id']}}",
-                            user : this.cuser[{{$chat->refs['created_by']}}],
-                            msg : "{{$chat->refs['message']}}"
-                        }
-                    @else
-                        refs : undefined
-                    @endif
-                },
-            @endforeach
-        ];
+        <?php
+            foreach($menus as $menu){
+                consoling($menu);
+            }
+            function consoling($menu){
+                if (isset($menu['children'])){
+                    foreach($menu['children'] as $mm){
+                        echo "this.tmenu_".$menu['key']." = ".($menu['status']?"true":"false").";";
+                        consoling($mm);
+                    }
+                    echo "console.log('".$menu['key']."', 'this.tmenu_".$menu['key']."');";
+                }
+            }
+        ?>
     },
-    @endisset
     methods:{
         updateParamArray(array, remove = undefined){
             var url = new URL(window.location.href);
@@ -443,10 +394,9 @@ var vue = new Vue({
             }
         },
         showTab(menu){
-            if (this.tmenu != menu)
-                this.tmenu = menu;
-            else
-                this.tmenu = undefined;
+            // this.$set(this.tmenu, menu, !this.tmenu[menu]);
+            // this.tmenu[menu] = !this.tmenu[menu];
+            // console.log(this.tmenu);
         },
         @isset($chatAble)
             toChat($id){
