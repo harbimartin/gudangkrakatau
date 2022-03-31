@@ -22,9 +22,10 @@ class CreateMItemsTable extends Migration
             $table->char('upc',16);
             $table->timestamps();
         });
-        // Schema::table('m_items', function (Blueprint $table){
-        //     $table->foreign('m_item_id')->references('id')->on('m_item_headers');
-        // });
+        Schema::table('m_items', function (Blueprint $table){
+            $table->foreign('group_id')->references('id')->on('m_item_groups');
+            $table->foreign('classification_id')->references('id')->on('m_item_classifications');
+        });
     }
 
     /**
