@@ -12,12 +12,13 @@ class Add extends Component
     public $url;
     public $select;
     public $error;
+    public $button;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($unique, $title, $column, $url = '', $select = [], $error = '')
+    public function __construct($unique, $title, $column, $url = '', $select = [], $error = '', $button = null)
     {
         $this->unique = $unique;
         $this->title = $title;
@@ -25,6 +26,7 @@ class Add extends Component
         $this->select = $select;
         $this->url = $url;
         $this->error = $error;
+        $this->button = $button;
     }
 
     /**

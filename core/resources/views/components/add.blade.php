@@ -28,9 +28,7 @@
     <form class="container md:rounded-lg shadow my-3 md:my-8 py-2 md:py-4 px-3 md:px-6 bg-white text-xs md:text-base" action="{{request()->fullUrl()}}" method="POST" enctype="multipart/form-data">
         <input hidden name="_last_" value="{{request()->_last_ ? request()->_last_ : request()->fullUrl()}}">
         <h1 class="border-b text-lg md:text-2xl pb-2 border-gray-200 mb-2">
-            @if($title!="Verifikasi")
-                {{$title}}
-            @endif
+            {{$title}}
         </h1>
         @if($error)
             <div class="col-span-2">
@@ -407,24 +405,10 @@
                 </div>
             @endforeach
         </div>
-        <?php
-            $butt = "Add ".$title;
-            switch($title){
-                case 'Propose':
-                    $butt = "Propose";
-                break;
-                case 'Verification':
-                    $butt = "Verification";
-                break;
-                case 'Verification - Proposed':
-                    $butt = "Verification - Proposed";
-                break;
-            }
-        ?>
         <input
             type="button"
             class="flex rounded border mt-5 md:mt-2 px-4 py-2 bg-green-500 hover:bg-green-600 ml-auto md:mr-5 cursor-pointer text-white font-semibold"
-            value="{{$butt}}"
+            value="{{$button ? $button : ('Add '.$title)}}"
             v-on:click="uploadRefresh('_subad_{{$unique}}_')"
         >
         <button
