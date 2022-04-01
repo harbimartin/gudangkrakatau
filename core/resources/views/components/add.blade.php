@@ -48,7 +48,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-4 md:p-5">
             @csrf
             @foreach ($columns as $key => $param)
-                <div @isset($param->if)if="{{json_encode($param->if)}}"@endisset class="grid @isset($param->class){{$param->class}}@endisset {{ isset($param->full) ? 'md:col-span-2 grid-cols-6':'grid-cols-3'}}">
+                <div @isset($param->if)if="{{json_encode($param->if)}}"@endisset class="grid @isset($param->class){{$param->class}}@endisset {{ isset($param->full) && $param->full ? 'md:col-span-2 grid-cols-6':'grid-cols-3'}}">
                     @isset($param->name)
                         <label for="{{$key}}" class="my-1 md:mb-0 col-span-6 md:col-span-1">{{$param->name}}</label>
                     @endisset
