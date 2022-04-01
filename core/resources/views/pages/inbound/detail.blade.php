@@ -14,7 +14,7 @@
     title="Form Pemasukan Barang"
     :column="$column"
     :detail="true"
-    button="add detail"
+    button="Tambah Barang"
     >
 </x-add>
 <?php
