@@ -52,6 +52,7 @@
     :column="$column"
     {{-- :data="$data" --}}
     :detail="true"
+    button="Tambah Pemasukan Header"
     >
 </x-add>
 
