@@ -83,6 +83,11 @@ class DatabaseSeeder extends Seeder{
             'icon' => 1
         ],[
             'parent' => 2,
+            'key' => 'item',
+            'name' => 'Barang',
+            'icon' => 1
+        ],[
+            'parent' => 2,
             'key' => 'uom',
             'name' => 'Satuan',
             'icon' => 1
@@ -95,27 +100,27 @@ class DatabaseSeeder extends Seeder{
             'parent' => null,
             'key' => 'inbound',
             'name' => 'Pemasukan',
-            'icon' => 0
+            'icon' => 1
         ],[
             'parent' => null,
             'key' => 'crossdock',
             'name' => 'Pemindahan',
-            'icon' => 0
+            'icon' => 1
         ],[
             'parent' => null,
             'key' => 'outbound',
             'name' => 'Pengeluaran',
-            'icon' => 0
+            'icon' => 1
         ],[
             'parent' => null,
             'key' => 'assemble',
             'name' => 'Perakitan',
-            'icon' => 0
+            'icon' => 1
         ],[
             'parent' => null,
             'key' => 'disassemble',
             'name' => 'Pembongkaran',
-            'icon' => 0
+            'icon' => 1
         ]));
 
         CabangGroupMenu::insert(array([

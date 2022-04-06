@@ -1,53 +1,43 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Manage;
 
+use App\Http\Controllers\Controller;
+use App\User;
+use App\UserList;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
-class InboundController extends Controller{
+class UserController extends Controller{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        if ($request->id){
-            // $inbound = Inbound::find($id);
-            $header = [
-                'gudang_id' => "Gudang JKT",
-                'm_transport_id' => "Truck",
-                'm_asal_id' => "Cilegon",
-                'code' => 'JKT009121',
-                'kendaraan' => 'Truk',
-                'receive_by' => 'Alex Afandi',
-                'note' => 'Barang tiba dengan aman',
-                'supir' => 'Jordi',
-                'receive_at' => '2022-04-04',
-                'created_at' => '2022-04-04',
-                'updated_at' => '2022-04-04',
-            ];
-            return view('pages.inbound.detail', ['header'=>$header]);
-        }
-        return view('pages.inbound.index', [ ]);
+        $error = $this->err_get('error');
+        if (!$length = $request->el)
+            $length = 10;
+        $data = $this->getDataByRequest($request)->paginate($length);;
+        return view('pages.management.user-man.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
     }
-
     /**
-     * Show the form for creating a new resource.
+     * Function to export excel files.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(){
-        //
+    public function export(Request $request){
+        return Excel::download($this->getDataByRequest($request)->get(), 'MRA_OVERVIEW_'.date("YmdHis").'.xlsx');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Function to get MasterBillOfMaterial list
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
-        return redirect(url('inbound')."?id=1");
+    public function getDataByRequest(Request $request){
+        $paginate = UserList::filter($request);
+        return $paginate;
     }
 
     /**

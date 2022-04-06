@@ -1,19 +1,18 @@
-@extends('index', ['on'=>'brand'])
-@section('content')<div class="md:px-6">
+@extends('index', ['on'=>'inbound'])
+@section('content')
     {{-- <form class="container md:rounded-lg shadow my-3 md:my-8 py-2 md:py-4 px-3 md:px-6 bg-white text-xs md:text-base" action="{{request()->fullUrl()}}" method="POST" enctype="multipart/form-data"> --}}
         <?php
         $column = json_encode([
             'gudang_id'=>[ 'name'=>"Gudang", 'type'=>'String', 'full'=>false, 'def'=>'Gudang JKT'],
             'code'=>[ 'name'=>"Kode", 'type'=>'String', 'full'=>false, 'def'=>'JKT009121'],
-            'm_transport_id'=>[ 'name'=>"Kendaraan", 'type'=>'String', 'full'=>false, 'def'=>'Truk'],
+            'm_transport_id'=>[ 'name'=>"Kendaraan", 'type'=>'String', 'full'=>false, 'def'=>'Truck'],
             'receive_by'=>[ 'name'=>"Diterima Oleh", 'type'=>'String', 'full'=>false, 'def'=>'Alex Refandi'],
             'note'=>[ 'name'=>"Catatan", 'type'=>'String', 'def'=>'Barang tiba dengan aman'],
             'supir'=>[ 'name'=>"Supir", 'type'=>'String', 'def'=>'Jodi'],
             'm_asal_id'=>[ 'name'=>"Asal Barang", 'type'=>'String', 'def'=>'Cilegon'],
             'receive_at'=>[ 'name'=>"Diterima", 'type'=>'Date', 'def'=>'0'],
-            // 'status'=>[ 'name'=>"Status", 'type'=>'Boolean', 'val'=>['Gagal', 'Berhasil']],
-            'created_at'=>[ 'name'=>"Created", 'type'=>'Date', 'def'=>'0'],
-            'updated_at'=>[ 'name'=>"Update", 'type'=>'Date', 'def'=>'1']
+            // 'created_at'=>[ 'name'=>"Created", 'type'=>'Date', 'def'=>'0'],
+            // 'updated_at'=>[ 'name'=>"Update", 'type'=>'Date', 'def'=>'1']
         ]);
         // foreach(json_decode($data['body']) as $object){
         //     $arrays[] =  (array) $object;
@@ -46,14 +45,26 @@
             </div>
         </div> --}}
     {{-- </form> --}}
+    @isset(request()->id)
+        <x-update
+            unique="email"
+            title="Header Pemasukan"
+            :column="$column"
+            :data="$header"
+            :detail="true"
+            button="Tambah Pemasukan Header"
+        >
+        </x-update>
+        @yield('detail')
+    @else
     <x-add
-    unique="email"
-    title="Form Pemasukan Header"
-    :column="$column"
-    {{-- :data="$data" --}}
-    :detail="true"
-    button="Tambah Pemasukan Header"
+        unique="email"
+        title="Form Header Pemasukan"
+        :column="$column"
+        {{-- :data="$data" --}}
+        :detail="true"
+        button="Tambah Pemasukan Header"
     >
-</x-add>
-
+    </x-add>
+    @endisset
 @endsection

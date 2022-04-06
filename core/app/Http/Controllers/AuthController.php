@@ -25,7 +25,7 @@ class AuthController extends Controller{
         // return;
         if (Auth::user()){
 
-            return route('home');
+            return redirect(route('home'));
         }
         $error = $this->err_get('error');
         return view('login', [ 'error' => $error ]);

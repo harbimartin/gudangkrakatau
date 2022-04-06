@@ -416,5 +416,6 @@
             hidden
             id="_subad_{{$unique}}_"
         ></button>
+        {{$slot}}
     </form>
 </div>

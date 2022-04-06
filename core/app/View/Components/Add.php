@@ -4,8 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Add extends Component
-{
+class Add extends Component{
     public $unique;
     public $title;
     public $column;

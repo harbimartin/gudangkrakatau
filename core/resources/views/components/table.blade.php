@@ -140,11 +140,11 @@
         @endif
         <div class="flex flex-col mt-4 ">
             <div class="-my-2 overflow-x-auto md:mx-0 max-w-6xl min-w-full">
-              <div class="py-2 align-middle inline-block lg:px-1 min-w-full">
+                <div class="py-2 align-middle inline-block lg:px-1 min-w-full">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                  <table class="divide-y divide-gray-200 min-w-full">
+                    <table class="divide-y divide-gray-200 min-w-full">
                     <thead class="bg-gray-50 text-xs md:text-xs">
-                      <tr>
+                        <tr>
                         @foreach (json_decode($column) as $key => $param)
                             <th scope="col">
                                 <div class="flex px-2 py-3 text-left font-medium text-gray-500 uppercase md:tracking-wider {{isset($param->align) ? 'text-'.$param->align : ($param->type=='Boolean'  ||  $param->type=='Edit' ? 'text-center':'') }}">
@@ -160,7 +160,7 @@
                                             <div class="flex-none my-auto ml-1 text-blue-700 hover:text-blue-500 cursor-pointer" v-on:click="updateParam('asort', '{{$key}}', 'dsort');">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
-                                                  </svg>
+                                                    </svg>
                                             </div>
                                         @else
                                             <div class="flex-none my-auto ml-1 hover:text-blue-400 text-gray-400 cursor-pointer" v-on:click="updateParam('asort', '{{$key}}', 'dsort');">
@@ -174,9 +174,9 @@
                             </th>
                         @endforeach
                         {{-- <th scope="col" class="relative px-6 py-3">
-                          <span class="sr-only">Edit</span>
+                            <span class="sr-only">Edit</span>
                         </th> --}}
-                      </tr>
+                        </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @if(sizeof($datas)==0)
@@ -194,7 +194,7 @@
                         @foreach ($datas as $iind=>$item)
                         <tr class="text-gray-900 text-xs md:text-sm">
                             @foreach (json_decode($column) as $key => $param)
-                                <td class="@if(!isset($param->sort) && $sort) pr-3 @endisset py-4 px-2 whitespace-nowrap {{isset($param->align) ? 'text-'.$param->align : ($param->type=='State' || $param->type=='Boolean' ||  $param->type=='Edit' ? 'text-center':'') }} @isset($param->if){{($item[$param->if[0]] == $param->if[1]) == $param->if[2] ? '':'hidden'}}@endisset">
+                                <td class="@if(!isset($param->sort) && $sort) pr-3 @endisset py-4 px-2 whitespace-nowrap {{isset($param->align) ? 'text-'.$param->align : ($param->type=='State' || $param->type=='Boolean' ||  $param->type=='Edit' ? 'text-center':'') }} @isset($param->if){{($item[$param->if[0]] == $param->if[1]) == $param->if[2] ? '':'hidden'}}@endisset @isset($param->shrink) @if($param->shrink) shrink @endif @endisset">
                                     @switch($param->type)
                                         @case('Multi')
                                         @foreach($param->children as $ckey => $cparam)
@@ -212,12 +212,12 @@
                                     @endswitch
                                 </td>
                             @endforeach
-                          </tr>
+                            </tr>
                         @endforeach
                     </tbody>
-                  </table>
+                    </table>
                 </div>
-              </div>
+                </div>
             </div>
             @if($tool && $lim)
             <div class="md:inline-flex mt-3 md:mt-6 mb-2 text-center">

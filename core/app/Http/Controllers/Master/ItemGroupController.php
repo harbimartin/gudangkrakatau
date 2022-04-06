@@ -17,7 +17,7 @@ class ItemGroupController extends Controller{
         $error = $this->err_get('error');
         if (!$length = $request->el)
             $length = 10;
-        $data = $this->getDataByRequest($request)->paginate($length);;
+        $data = $this->getDataByRequest($request)->paginate($length);
         return view('pages.master.igroup.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
     }
     /**

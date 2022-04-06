@@ -1,34 +1,42 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Manage;
 
+use App\Group;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
-class InboundController extends Controller{
+class GroupController extends Controller{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        if ($request->id){
-            // $inbound = Inbound::find($id);
-            $header = [
-                'gudang_id' => "Gudang JKT",
-                'm_transport_id' => "Truck",
-                'm_asal_id' => "Cilegon",
-                'code' => 'JKT009121',
-                'kendaraan' => 'Truk',
-                'receive_by' => 'Alex Afandi',
-                'note' => 'Barang tiba dengan aman',
-                'supir' => 'Jordi',
-                'receive_at' => '2022-04-04',
-                'created_at' => '2022-04-04',
-                'updated_at' => '2022-04-04',
-            ];
-            return view('pages.inbound.detail', ['header'=>$header]);
-        }
-        return view('pages.inbound.index', [ ]);
+        $error = $this->err_get('error');
+        if (!$length = $request->el)
+            $length = 10;
+        $data = $this->getDataByRequest($request)->paginate($length);;
+        return view('pages.management.group.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
+    }
+    /**
+     * Function to export excel files.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function export(Request $request){
+        return Excel::download($this->getDataByRequest($request)->get(), 'MRA_OVERVIEW_'.date("YmdHis").'.xlsx');
+    }
+
+    /**
+     * Function to get MasterBillOfMaterial list
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getDataByRequest(Request $request){
+        $paginate = Group::filter($request);
+        return $paginate;
     }
 
     /**
@@ -36,7 +44,8 @@ class InboundController extends Controller{
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(){
+    public function create()
+    {
         //
     }
 
@@ -46,8 +55,9 @@ class InboundController extends Controller{
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
-        return redirect(url('inbound')."?id=1");
+    public function store(Request $request)
+    {
+        //
     }
 
     /**

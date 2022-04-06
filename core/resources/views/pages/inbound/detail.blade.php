@@ -1,38 +1,51 @@
-@extends('index', ['on'=>'brand'])
-@section('content')<div class="md:px-6">
+@extends('pages.inbound.index')
+@section('detail')
     <?php
         $column = json_encode([
+            'jenis'=>[ 'name'=>"Jenis", 'type'=>'String', 'full'=>false, 'def'=>'Laptop'],
+            'brand'=>[ 'name'=>"Merek", 'type'=>'String', 'full'=>false, 'def'=>'ASUS'],
+            'type'=>[ 'name'=>"Type", 'type'=>'String', 'full'=>false, 'def'=>'ZenBook Pro 15'],
             'm_item_id'=>[ 'name'=>"Barang", 'type'=>'String', 'full'=>false, 'def'=>'Paket'],
             'quantity'=>[ 'name'=>"Jumlah", 'type'=>'String', 'full'=>false, 'def'=>'3'],
-            'note'=>[ 'name'=>"Catatan", 'type'=>'String', 'def'=>'Barang aman'],
-            'created_at'=>[ 'name'=>"Created", 'type'=>'Date', 'def'=>'0'],
-            'updated_at'=>[ 'name'=>"Update", 'type'=>'Date', 'def'=>'1']
+            'note'=>[ 'name'=>"Catatan", 'type'=>'TextArea', 'def'=>'Barang aman', 'full'=>true],
         ]);
     ?>
     <x-add
-    unique="email"
-    title="Form Pemasukan Barang"
-    :column="$column"
-    :detail="true"
-    button="Tambah Barang"
+        unique="new_item"
+        title="Form Pemasukan Barang"
+        :column="$column"
+        :detail="true"
+        button="Tambah Barang"
     >
-</x-add>
+        <button
+            type="submit"
+            hidden
+            id="new"
+        >Form Barang Baru</button>
+    </x-add>
 <?php
     $column_table = json_encode([
-        'id'=>[ 'name'=>"No", 'type'=>"Index"],
-        'name'=>[ 'name'=>"Name", 'type'=>"String"],
-        'quantity'=>[ 'name'=>"Jumlah", 'type'=>"String"],
+        'id'=>[ 'name'=>"No", 'type'=>"Index", 'shrink'=>true],
+        'sku'=>[ 'name'=>"SKU", 'type'=>"String", 'shrink'=>true],
+        'upc'=>[ 'name'=>"UPC", 'type'=>"String", 'shrink'=>true],
+        'name'=>[ 'name'=>"Name", 'type'=>"TextArea"],
+        'quantity'=>[ 'name'=>"Jumlah", 'type'=>"String", 'shrink'=>true, 'align'=>'center'],
         'act'=>[ 'name'=>"Action", 'type' => 'Edit', 'align'=>'center', 'sort'=>false]
     ]);
 
     $data = ([
         [
             'id' => 1,
+            'sku' => 'PIRCK012A33C',
+            'upc' => '144323134229',
+            'name' => 'Pipa',
             'name' => 'Pipa',
             'quantity' => '2',
         ],
         [
             'id' => 1,
+            'sku' => 'GNTEJJA100L23BRL',
+            'upc' => '144323134229',
             'name' => 'Gentong',
             'quantity' => '2',
         ]

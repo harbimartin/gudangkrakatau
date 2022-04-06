@@ -4,15 +4,12 @@
         $column_table = json_encode([
             'id'=>[ 'name'=>"No", 'type'=>"Index"],
             'name'=>[ 'name'=>"Name", 'type'=>"String"],
-            'desc'=>[ 'name'=>"Job Order", 'type'=>"String"],
-            'status'=>[ 'name'=>"Status", 'type'=>"State" ],
+            'desc'=>[ 'name'=>"Description", 'type'=>"TextArea", 'empty'=>"Tidak Ada"],
+            'status' => [ 'name'=>"Status", 'type'=>"State" ],
+            'toggle'=>[ 'by'=>'status', 'name'=>"Aktifkan", 'type'=>'Toggle', 'sort'=>false, 'align'=>'center'],
             'act'=>[ 'name'=>"Action", 'type' => 'Edit', 'align'=>'center', 'sort'=>false]
         ]);
     ?>
-    <x-add
-        :column="$column_table"
-    >
-    </x-add>
     <x-table
         :datef="true"
         :column="$column_table"

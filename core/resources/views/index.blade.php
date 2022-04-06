@@ -116,6 +116,10 @@
     input:checked+label>span{
         display: block;
     }
+    td.shrink{
+        width:0.1%;
+        white-space: nowrap;
+    }
     /* .tshadow{
         text-shadow: rgba(0, 0, 0, 0.13) 1px 1px 1px;
     } */

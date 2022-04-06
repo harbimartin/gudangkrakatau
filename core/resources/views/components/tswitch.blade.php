@@ -30,7 +30,7 @@
         @if($item[$key])
             <p class="text-ellipsis whitespace-normal">{{$item[$key]}}</p>
         @else
-            <p class="text-gray-400 text-ellipsis whitespace-normal" style="min-width:200px;">@isset($param->empty) {{$param->empty}} @else (Tidak ada) @endisset</p>
+            <p class="text-gray-400 text-ellipsis whitespace-normal" style="min-width:200px;">@isset($param->empty) {{$param->empty}} @else - @endisset</p>
         @endif
     @break
     @case('Date')

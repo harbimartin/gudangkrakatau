@@ -6,7 +6,7 @@ use Illuminate\View\Component;
 
 class SubMenu extends Component{
     public $menu;
-    public $ico = [ 'menu_data.png', 'menu_data.png' ];
+    public $ico = [ 'parent.svg', 'menu_data.png' ];
     public $margin;
     public $on;
     public $level;
