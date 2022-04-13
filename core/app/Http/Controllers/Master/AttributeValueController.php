@@ -3,28 +3,33 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
-use App\ItemGroup;
 use App\MasterAttribute;
-use App\MasterItemGroup;
+use App\MasterAttributeValue;
+use App\MasterUnitGroup;
 use Exception;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ItemGroupController extends Controller{
+class AttributeValueController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
+        $error = $this->err_get('herror');
         if ($request->id){
-            return redirect(route('igroup.attr', ['id'=>$request->id]));
-        }
-        $error = $this->err_get('error');
-        if (!$length = $request->el)
-            $length = 10;
-        $data = $this->getDataByRequest($request)->paginate($length);
-        return view('pages.master.igroup.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
+            if (!$length = $request->el)
+                $length = 10;
+            $select = [
+                'group' => MasterUnitGroup::select('id','name','desc')->where('status', 1)->get()
+            ];
+            $header = MasterAttribute::find($request->id);
+            $data = $this->getDataByRequest($request)->paginate($length);
+            return view('pages.master.attr.value', [ 'header' => $header , 'data' => $data, 'table'=>$this->tableProp($data), 'select' => $select, 'error'=>$error]);
+        }else
+            return redirect(route('attr'));
     }
     /**
      * Function to export excel files.
@@ -41,7 +46,7 @@ class ItemGroupController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function getDataByRequest(Request $request){
-        $paginate = MasterItemGroup::filter($request);
+        $paginate = MasterAttributeValue::filter($request);
         return $paginate;
     }
 
@@ -61,29 +66,18 @@ class ItemGroupController extends Controller{
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
-        if ($validate = $this->validing($request->all(), [
-            'name' => 'required',
-            'code' => 'required',
-            'desc' => 'required',
-        ])){
-            return $this->err_handler($request, 'error', $validate);
-        }
-        try{
-            MasterItemGroup::create($request->toArray());
-        }catch(Exception $th){
-            return $this->err_handler($request, 'error', $th->getMessage());
-        }
-        return redirect($request->_last_);
+    public function store(Request $request)
+    {
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\MasterItemGroup  $item
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(MasterItemGroup $item)
+    public function show($id)
     {
         //
     }
@@ -91,10 +85,10 @@ class ItemGroupController extends Controller{
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\MasterItemGroup  $item
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(MasterItemGroup $item)
+    public function edit($id)
     {
         //
     }
@@ -103,23 +97,30 @@ class ItemGroupController extends Controller{
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\MasterItemGroup  $item
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if ($request->has('toggle')){
-            MasterItemGroup::find($id)->update(['status'=> $request->toggle]);
+        switch($request->__type){
+            case 'update':
+                try{
+                    MasterAttribute::find($id)->update($request->toArray());
+                }catch(Exception $th){
+                    return $this->err_handler($request, 'error', $th->getMessage());
+                }
+                return redirect($request->_last_);
+                break;
         }
-        return redirect($request->_last_);
+        return $request->toArray();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\MasterItemGroup  $item
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MasterItemGroup $item)
+    public function destroy($id)
     {
         //
     }

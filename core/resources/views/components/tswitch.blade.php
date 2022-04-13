@@ -105,7 +105,7 @@
         <form action="{{Request::url().'/'.$item[(isset($param->id) ? $param->id : 'id')]}}" method="POST">
             @csrf
             @method('DELETE')
-            <input id="url" name="url" value="{{Request::fullUrl()}}" hidden>
+            <input hidden name="_last_" value="{{request()->fullUrl()}}">
             <button type="submit" class="text-indigo-600 hover:text-indigo-900">Delete</button>
         </form>
         @break
@@ -134,22 +134,6 @@
     @break
     @case('Slot')
             @switch($key)
-                @case('vendor')
-                    <?php
-                        $vendors = $item['vendors'];
-                    ?>
-                    Nama : {{$vendors['contact']}}<br>
-                    Email : {{$vendors['email']}}<br>
-                    Posisi : {{$vendors['posisi']}}<br>
-                @break;
-                @case('item')
-                    <?php
-                        $items = $item['item'];
-                    ?>
-                    @foreach($items as $item)
-                        - {{$item['name']}}<br>
-                    @endforeach
-                @break;
                 @case('file')
                     @if(sizeof($item->vfile)==0)
                         <div class="text-gray-400 ml-6 mt-1">(Tidak ada)</div>
@@ -170,23 +154,15 @@
                         </ol>
                     @endif
                 @break
-                @case('waiting')
-                    @if($item->lastw)
-                    <div class="mr-auto leading-5 rounded-full text-gray-800">
-                            <span class="font-gray-500">{{$item->lastw[0]}} :</span>
-                            <span class="font-medium">{{$item->lastw[1]}}</span>
-                        </div>
-                    @endif
-                @break
-                @case('argo')
-                    <?php
-                        $approved = new DateTime($item['approved']);
-                        $now = new DateTime('NOW');
-                        $between = $approved->diff($now);
-                    ?>
-                    <div class="mx-auto">
-                        {{ $between->format("%d Hari") }}
-                    </div>
+                @case('shift')
+                <form action="{{Request::url().'/'.$item[(isset($param->id) ? $param->id : 'id')]}}" method="POST" class="flex align-middle text-white font-semibold">
+                    @csrf
+                    @method('PUT')
+                    <input hidden name="id" value="{{$item['id']}}"/>
+                    <input hidden name="_last_" value="{{request()->fullUrl()}}">
+                    <button type="submit" name="shift" value="head" class="rounded-md border border-blue-100 bg-blue-500 px-2 py-1 mx-1">To Head</button>
+                    <button type="submit" name="shift" value="tail" class="rounded-md border border-blue-100 bg-blue-500 px-2 py-1 mx-1">To Tail</button>
+                </form>
                 @break
             @endswitch
         @break

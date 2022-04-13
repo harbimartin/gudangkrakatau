@@ -8,7 +8,7 @@
             'm_transport_id'=>[ 'name'=>"Kendaraan", 'type'=>'String', 'full'=>false, 'def'=>'Truck'],
             'receive_by'=>[ 'name'=>"Diterima Oleh", 'type'=>'String', 'full'=>false, 'def'=>'Alex Refandi'],
             'note'=>[ 'name'=>"Catatan", 'type'=>'String', 'def'=>'Barang tiba dengan aman'],
-            'supir'=>[ 'name'=>"Supir", 'type'=>'String', 'def'=>'Jodi'],
+            'supir'=>[ 'name'=>"Supir", 'type'=>'String', 'def'=>'Jordi'],
             'm_asal_id'=>[ 'name'=>"Asal Barang", 'type'=>'String', 'def'=>'Cilegon'],
             'receive_at'=>[ 'name'=>"Diterima", 'type'=>'Date', 'def'=>'0'],
             // 'created_at'=>[ 'name'=>"Created", 'type'=>'Date', 'def'=>'0'],

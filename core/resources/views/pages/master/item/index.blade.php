@@ -3,6 +3,7 @@
     <?php
         $column_add = json_encode([
             'name' => [ 'name'=>'Nama', 'type'=>"String" ],
+            'code'=>[ 'name'=>"Code", 'type'=>"String"],
             'desc' => [ 'name'=>"Deskripsi", 'type'=>"TextArea", 'full'=>true ],
         ]);
         $column_table = json_encode([

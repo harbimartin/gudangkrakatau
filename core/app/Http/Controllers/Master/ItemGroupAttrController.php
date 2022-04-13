@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
-use App\ItemGroup;
 use App\MasterAttribute;
 use App\MasterItemGroup;
+use App\MasterItemGroupSku;
 use Exception;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ItemGroupController extends Controller{
+class ItemGroupAttrController extends Controller{
     /**
      * Display a listing of the resource.
      *
@@ -18,13 +18,15 @@ class ItemGroupController extends Controller{
      */
     public function index(Request $request){
         if ($request->id){
-            return redirect(route('igroup.attr', ['id'=>$request->id]));
-        }
-        $error = $this->err_get('error');
-        if (!$length = $request->el)
-            $length = 10;
-        $data = $this->getDataByRequest($request)->paginate($length);
-        return view('pages.master.igroup.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
+            $herror = $this->err_get('herror');
+            $error = $this->err_get('error');
+            $header = MasterItemGroup::find($request->id);
+            $select = [
+                'attr' => MasterAttribute::where('status', 1)->get()
+            ];
+            return view('pages.master.igroup.attr', [ 'header' => $header , 'herror' => $herror, 'select'=>$select, 'error' => $error ]);
+        }else
+            return redirect(route('igroup'));
     }
     /**
      * Function to export excel files.
@@ -63,14 +65,14 @@ class ItemGroupController extends Controller{
      */
     public function store(Request $request){
         if ($validate = $this->validing($request->all(), [
-            'name' => 'required',
-            'code' => 'required',
-            'desc' => 'required',
+            'sequence' => 'required',
+            'm_attribute_id' => 'required',
         ])){
             return $this->err_handler($request, 'error', $validate);
         }
         try{
-            MasterItemGroup::create($request->toArray());
+            $request['m_item_group_id'] = $request->id;
+            MasterItemGroupSku::create($request->toArray());
         }catch(Exception $th){
             return $this->err_handler($request, 'error', $th->getMessage());
         }
@@ -109,6 +111,35 @@ class ItemGroupController extends Controller{
     public function update(Request $request, $id){
         if ($request->has('toggle')){
             MasterItemGroup::find($id)->update(['status'=> $request->toggle]);
+        }else if ($request->has('shift')){
+            // Fastest Update Sequence Query
+            $target = MasterItemGroupSku::find($id);
+            $high = 0; $high_obj = null; $higher = 0;
+            if ($request->shift == 'head'){
+                foreach($target->sibling as $sibling){
+                    if ($sibling->sequence < $target->sequence){
+                        $higher = $high;
+                        $high = $sibling->sequence;
+                        $high_obj = $target;
+                    }
+                }
+            }else{ // 'tail'
+                foreach($target->siblingr as $sibling){
+                    if ($sibling->sequence > $target->sequence){
+                        $higher = $high;
+                        $high = $sibling->sequence;
+                        $high_obj = $target;
+                    }
+                }
+            }
+            $mid = round(($high + $higher) / 2);
+            if ($mid == $high){
+                if ($high_obj)
+                    $high_obj->update(['sequence' => $target->sequence]);
+                $target->update(['sequence' => $mid]);
+            }else{
+                $target->update(['sequence' => $mid]);
+            }
         }
         return redirect($request->_last_);
     }
@@ -119,8 +150,8 @@ class ItemGroupController extends Controller{
      * @param  \App\MasterItemGroup  $item
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MasterItemGroup $item)
-    {
-        //
+    public function destroy(Request $request, $id){
+        MasterItemGroupSku::find($id)->delete();
+        return redirect($request->_last_);
     }
 }

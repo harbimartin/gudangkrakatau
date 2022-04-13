@@ -16,7 +16,7 @@ class CreateMAttributesTable extends Migration {
             $table->string('name');
             $table->string('desc');
             $table->unsignedBigInteger('m_uom_group_id')->nullable();
-            $table->boolean('status')->default(true);
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

@@ -177,6 +177,7 @@
                                         <?php
                                             $samerr = isset($error['data'][$key]) && $item[$cid] == $tsdef;
                                             $txt='';
+                                            $desc='';
                                             if (isset($param->format)){
                                                 foreach($param->val as $kk => $val){
                                                     $txt = $txt.$param->format[$kk*2].$item[$val].$param->format[$kk*2+1];
@@ -188,6 +189,13 @@
                                                         $txt = $txt.($str == '' ? '(Blank)':$str);
                                                     else
                                                         $txt = $txt.' - '.$str;
+                                                }
+                                                foreach($param->desc as $kk => $val){
+                                                    $str = $item[$val];
+                                                    if ($kk == 0)
+                                                        $desc = $desc.($str == '' ? '(Blank)':$str);
+                                                    else
+                                                        $desc = $desc.' - '.$str;
                                                 }
                                             }
                                             if ($item[$cid] == $tsdef)
@@ -232,7 +240,7 @@
                                         @endisset
                                         data-value="{{$item[$cid]}}"
                                         value="{{$txt}}"
-                                        >
+                                        >{{$desc}}
                                     </option>
                                 @endforeach
                             </datalist>

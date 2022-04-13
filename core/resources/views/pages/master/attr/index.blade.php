@@ -1,18 +1,17 @@
-@extends('index', ['on'=>'igroup'])
+@extends('index', ['on'=>'attr'])
 @section('content')
     <?php
         $column_add = json_encode([
-            'name' => [ 'name'=>'Nama', 'type'=>"String" ],
-            'code'=>[ 'name'=>"Code", 'type'=>"String"],
-            'desc' => [ 'name'=>"Deskripsi", 'type'=>"TextArea", 'val'=>['cost_center','cost_center_desc'], 'full'=>true ]
+            'name'=>[ 'name'=>"Nama", 'type'=>"String"],
+            'm_uom_group_id'=>[ 'name'=>"Measure Group", 'type'=>"TextSel", 'api'=>'group', 'val'=>['name'], 'desc'=>['desc']],
+            'desc'=>[ 'name'=>"Deskripsi", 'type'=>"TextArea", 'full'=>true],
         ]);
         $column_table = json_encode([
             'id'=>[ 'name'=>"No", 'type'=>"Index"],
             'name'=>[ 'name'=>"Name", 'type'=>"String"],
-            'code'=>[ 'name'=>"Code", 'type'=>"String"],
-            'desc'=>[ 'name'=>"Description", 'type'=>"TextArea", 'empty'=>"Tidak Ada"],
-            'tattr' => [ 'name'=>'Attribute Total', 'type'=>"Number" ],
-            'status' => [ 'name'=>"Status", 'type'=>"State" ],
+            'desc'=>[ 'name'=>"Job Order", 'type'=>"String"],
+            'uom_group'=>[ 'name'=>"UoM Group", 'type'=>"SString", 'child'=>'name' ],
+            'status'=>[ 'name'=>"Status", 'type'=>"State" ],
             'toggle'=>[ 'by'=>'status', 'name'=>"Aktifkan", 'type'=>'Toggle', 'sort'=>false, 'align'=>'center'],
             'act'=>[ 'name'=>"Action", 'type' => 'Edit', 'align'=>'center', 'sort'=>false]
         ]);
@@ -21,8 +20,9 @@
         :column="$column_add"
         :data="$data"
         unique="add"
-        title="Form Add Item Group"
-        button="Add Item Group"
+        title="Form Add Attribute"
+        button="Add Attribute"
+        :select="$select"
         :error="$error"
     >
     </x-add>

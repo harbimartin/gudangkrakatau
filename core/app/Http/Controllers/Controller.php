@@ -51,6 +51,8 @@ class Controller extends BaseController
         return response()->json($error,$code);
     }
     public function err_get($key){
+        if (session_status() === PHP_SESSION_NONE)
+            session_start();
         if (!isset($_SESSION[$key]))
             return null;
         $return = $_SESSION[$key];
@@ -60,6 +62,7 @@ class Controller extends BaseController
     public function err_handler(Request $request,$key, $error){
         if (is_array($error))
             $error = implode(", ",$error).'.';
+        session_start();
         $_SESSION[$key] = [ 'msg'=>$error, 'data'=>$request->toArray()];
         return redirect($request->_last_);
     }

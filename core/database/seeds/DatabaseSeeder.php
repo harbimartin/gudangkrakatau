@@ -5,8 +5,11 @@ use App\CabangGroup;
 use App\CabangGroupMenu;
 use App\Group;
 use App\GroupMenu;
+use App\MasterAttribute;
+use App\MasterItemAttribute;
+use App\MasterItemGroup;
 use App\MasterUnitGroup;
-use App\MasterUnitOfMeasure;
+use App\MasterUnitMeasure;
 use App\Menu;
 use App\User;
 use Illuminate\Database\Seeder;
@@ -37,7 +40,7 @@ class DatabaseSeeder extends Seeder{
         User::insert(array([
             'username' => 'admin',
             'name' => 'adii',
-            'password' =>bcrypt('123456'),
+            'password' => bcrypt('123456'),
             'email' => 'adi@gmail.com',
             // 'group_id' => 1
         ]));
@@ -68,18 +71,23 @@ class DatabaseSeeder extends Seeder{
             'icon' => 1
         ],[
             'parent' => 2,
-            'key' => 'cabang',
+            'key' => 'branch',
             'name' => 'Cabang',
             'icon' => 1
         ],[
             'parent' => 2,
-            'key' => 'gudang',
+            'key' => 'whouse',
             'name' => 'Gudang',
             'icon' => 1
         ],[
             'parent' => 2,
             'key' => 'igroup',
             'name' => 'Jenis Barang',
+            'icon' => 1
+        ],[
+            'parent' => 2,
+            'key' => 'attr',
+            'name' => 'Atribut',
             'icon' => 1
         ],[
             'parent' => 2,
@@ -93,7 +101,7 @@ class DatabaseSeeder extends Seeder{
             'icon' => 1
         ],[
             'parent' => 2,
-            'key' => 'transport',
+            'key' => 't-port',
             'name' => 'Angkutan',
             'icon' => 1
         ],[
@@ -595,6 +603,18 @@ class DatabaseSeeder extends Seeder{
                 'status' => 1
             ]
         ));
-        MasterUnitOfMeasure::insert($record);
+        MasterUnitMeasure::insert($record);
+
+        MasterItemGroup::insert(array([
+            'name' => 'Laptop',
+            'code' => 'LP',
+            'desc' => '-',
+            'status' => 1
+        ]));
+        MasterAttribute::insert(array([
+            'name' => 'Brand',
+            'desc' => '-',
+            'status' => 1
+        ]));
     }
 }

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
-use App\MasterUnitOfMeasure;
+use App\MasterUnitGroup;
+use App\MasterUnitMeasure;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -17,8 +18,11 @@ class UnitMeasureController extends Controller{
         $error = $this->err_get('error');
         if (!$length = $request->el)
             $length = 10;
-        $data = $this->getDataByRequest($request)->paginate($length);;
-        return view('pages.master.uom.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
+        $data = $this->getDataByRequest($request)->paginate($length);
+        $select = [
+            'group' => MasterUnitGroup::where('status', 1)
+        ];
+        return view('pages.master.uom.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error, 'select'=>$select]);
     }
     /**
      * Function to export excel files.
@@ -35,7 +39,7 @@ class UnitMeasureController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function getDataByRequest(Request $request){
-        $paginate = MasterUnitOfMeasure::filter($request);
+        $paginate = MasterUnitMeasure::filter($request);
         return $paginate;
     }
 
@@ -62,10 +66,10 @@ class UnitMeasureController extends Controller{
     /**
      * Display the specified resource.
      *
-     * @param  \App\MasterUnitOfMeasure  $uom
+     * @param  \App\MasterUnitMeasure  $uom
      * @return \Illuminate\Http\Response
      */
-    public function show(MasterUnitOfMeasure $uom)
+    public function show(MasterUnitMeasure $uom)
     {
         //
     }
@@ -73,10 +77,10 @@ class UnitMeasureController extends Controller{
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\MasterUnitOfMeasure  $uom
+     * @param  \App\MasterUnitMeasure  $uom
      * @return \Illuminate\Http\Response
      */
-    public function edit(MasterUnitOfMeasure $uom)
+    public function edit(MasterUnitMeasure $uom)
     {
         //
     }
@@ -85,10 +89,10 @@ class UnitMeasureController extends Controller{
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\MasterUnitOfMeasure  $uom
+     * @param  \App\MasterUnitMeasure  $uom
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MasterUnitOfMeasure $uom){
+    public function update(Request $request, MasterUnitMeasure $uom){
         if ($request->has('toggle')){
             $uom->update(['status'=> $request->toggle]);
         }
@@ -98,10 +102,10 @@ class UnitMeasureController extends Controller{
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\MasterUnitOfMeasure  $uom
+     * @param  \App\MasterUnitMeasure  $uom
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MasterUnitOfMeasure $uom)
+    public function destroy(MasterUnitMeasure $uom)
     {
         //
     }

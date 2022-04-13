@@ -127,25 +127,7 @@
 </head>
 <body>
     <?php
-        $lstp = 0;
-        $name = 'approv';
-        // $menus = $_SESSION['menu'];
-        // echo json_encode(Session::get('menu'));
         $menus = Session::get('menu');
-        // [
-        //     'home'=>['name'=>'Home', 'ico'=>'home.svg'],
-        //     'config'=>['name'=>'Configuration', 'ico'=>'menu_data.png', 'children'=>[
-        //         'group-man' => ['name'=>'Group Management', 'ico'=>'menu_data.png'],
-        //         'menu-man' => ['name'=>'Menu Management', 'ico'=>'menu_data.png'],
-        //         'user-man' => ['name'=>'User Management', 'ico'=>'menu_data.png']
-        //     ]],
-        //     'user'=>['name'=>'Menu Management', 'ico'=>'home.svg'],
-        //     // 'persetujuan'=>['name'=>'Persetujuan', 'ico'=>'parent.svg', 'children'=>[
-        //         'persetujuan'=>['name'=>'Persetujuan', 'ico'=>'menu_data.png', 'notif'=>'lstp'],
-        //         'draft'=>['name'=>'Draft LSTP', 'ico'=>'menu_data.png'],
-        //         'overview'=>['name'=>'Overview LSTP', 'ico'=>'menu_data.png'],
-        //     // ]]
-        // ];
     ?>
     <section id="vue-app" class="body md:flex max-w-screen max-h-screen ">
         <section class="navigation w-full md:h-screen md:max-h-screen md:border-gray-300 md:border-r fw-nav">
@@ -236,7 +218,3 @@
     </section>
     @extends('vue')
 </body>
-<script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
-{{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-    @yield('script')
-</html> --}}

@@ -1,4 +1,4 @@
-@extends('index', ['on'=>'cabang'])
+@extends('index', ['on'=>'branch'])
 @section('content')
     <?php
         $column_add = json_encode([

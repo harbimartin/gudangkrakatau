@@ -14,7 +14,7 @@ class CreateMItemGroupsTable extends Migration {
         Schema::create('m_item_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->char('code',4);
+            $table->char('code',4)->unique();
             $table->string('desc')->default('');
             $table->boolean('status')->default(false);
             $table->timestamps();

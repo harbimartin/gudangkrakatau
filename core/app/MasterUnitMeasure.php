@@ -1,27 +1,28 @@
 <?php
 
 namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
 /**
- * Column : id, name,desc,status, created_at, updated_at
+ * Column : id, code, desc, status, group_id, created_at, updated_at
  */
-class ItemGroup extends AList
-{
-    public $table = 'm_item_groups';
+class MasterUnitMeasure extends AList{
+    public $table = 'm_unit_measures';
     public $guarded = [];
     protected $sort_default = 'created_at';
     protected $date_default = 'created_at';
     protected $sortable = [
-        'name'=>null,
-        'desc'=>null,
+        'code'=>null,
         'status'=>null,
+        'decimal'=>null,
         'created_at'=>null,
         'updated_at'=>null
     ];
     protected $searchable = [
-        'name'=>0,
+        'code'=>0,
         'status'=>1,
         'desc'=>1,
-        'created_at'=>1,
-        'updated_at'=>1
+        'decimal'=>1
     ];
 }

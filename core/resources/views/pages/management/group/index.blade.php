@@ -1,4 +1,4 @@
-@extends('index', ['on'=>'brand'])
+@extends('index', ['on'=>'group'])
 @section('content')
     <?php
         $column_table = json_encode([
