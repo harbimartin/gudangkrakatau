@@ -41,7 +41,7 @@
     <x-table
         :datef="true"
         :column="$column_table"
-        :datas="$header->attr"
+        :datas="$header->sku"
         :tool="false"
     >
     </x-table>

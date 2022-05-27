@@ -29,6 +29,7 @@ class CreateTInboundHeadersTable extends Migration
             $table->foreign('m_gudang_id')->references('id')->on('m_gudangs');
             $table->foreign('m_transport_id')->references('id')->on('m_transports');
             $table->foreign('m_asal_id')->references('id')->on('m_asals');
+            $table->foreign('receive_by')->references('id')->on('users');
         });
     }
 

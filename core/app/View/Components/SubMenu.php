@@ -7,6 +7,7 @@ use Illuminate\View\Component;
 class SubMenu extends Component{
     public $menu;
     public $ico = [ 'parent.svg', 'menu_data.png' ];
+    public $index;
     public $margin;
     public $on;
     public $level;
@@ -15,11 +16,12 @@ class SubMenu extends Component{
      *
      * @return void
      */
-    public function __construct($menu, $level, $margin = 3, $on = null){
+    public function __construct($menu, $index, $level, $margin = 3, $on = null){
         $this->menu = $menu;
         $this->margin = $margin;
         $this->on = $on;
         $this->level = $level;
+        $this->index = $index;
     }
 
     /**

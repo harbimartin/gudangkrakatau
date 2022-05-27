@@ -2,9 +2,9 @@
 
 namespace App;
 /**
- * Column : id, panjang,lebar,tinggi,m_item_id,m_uom_id,status, created_at, updated_at
+ * Column : id, value, code, m_attr_id, m_uom_id, created_at, updated_at
  */
-class MasterItemAttributeValue extends AList{
+class _MasterItemAttributeValue extends AList{
     public $table = 'm_item_attribute_values';
     public $guarded = [];
     protected $sort_default = 'created_at';
@@ -19,4 +19,7 @@ class MasterItemAttributeValue extends AList{
         'created_at'=>1,
         'updated_at'=>1
     ];
+    public function item_attr(){
+        return $this->hasMany(MasterItemAttribute::class, 'm_value_id', 'id');
+    }
 }

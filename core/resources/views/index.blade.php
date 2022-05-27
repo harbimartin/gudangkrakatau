@@ -100,7 +100,7 @@
     }
     .thidden.block{
         transition:.5s;
-        max-height:250px;
+        max-height:350px;
     }
     input+label{
         filter: grayscale(80%);
@@ -163,8 +163,8 @@
                     <?php
                         $sel_tab = isset($on) ? $on : '';
                     ?>
-                    @foreach ($menus as $menu)
-                        <x-sub-menu :menu="$menu" :on="$sel_tab" :level="'tmenu_0'"></x-sub-menu>
+                    @foreach ($menus as $imenu => $menu)
+                        <x-sub-menu :menu="$menu" :on="$sel_tab" :level="'tmenu'" :index="$imenu"></x-sub-menu>
 
                         {{-- <a @isset($menu['children']) v-on:click="showTab('{{$menu['key']}}')" @else href="{{ url('/'.$menu['key']) }}" @endisset>
                             <div class="inline-flex w-full px-3 py-2.5 cursor-pointer {{isset($on) && $on==$menu['key'] ? 'bg-blue-100 hover:bg-blue-200' : 'hover:bg-gray-100 '}}">

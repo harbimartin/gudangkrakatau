@@ -1,35 +1,44 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
 
 use App\Asal;
-use App\Gudang;
-use App\InboundHeader;
-use App\MasterTransport;
-use App\User;
+use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
-class InboundController extends Controller{
+class AsalController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        if ($request->id){
-            return redirect(route('inbound.item', ['id'=>$request->id]));
-        }
         $error = $this->err_get('error');
-        $select = [
-            'gudang' => Gudang::where('status', 1)->get(),
-            'angkutan' => MasterTransport::where('m_transports.status', 1)->leftJoin('m_transport_groups', function($q){
-                $q->on('m_transports.id', 'm_transport_groups.id');
-            })->select('m_transports.*', 'm_transport_groups.name as tname', 'm_transport_groups.code as tcode')->get(),
-            'asal' => Asal::where('status', 1)->get(),
-            'user' => User::where('status', 1)->get()
-        ];
-        return view('pages.inbound.index', [ 'error' => $error, 'select'=>$select]);
+        if (!$length = $request->el)
+            $length = 10;
+        $data = $this->getDataByRequest($request)->paginate($length);;
+        return view('pages.master.origin.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
+    }
+    /**
+     * Function to export excel files.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function export(Request $request){
+        return Excel::download($this->getDataByRequest($request)->get(), 'MRA_OVERVIEW_'.date("YmdHis").'.xlsx');
+    }
+
+    /**
+     * Function to get MasterBillOfMaterial list
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getDataByRequest(Request $request){
+        $paginate = Asal::filter($request);
+        return $paginate;
     }
 
     /**
@@ -37,7 +46,8 @@ class InboundController extends Controller{
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(){
+    public function create()
+    {
         //
     }
 
@@ -49,28 +59,23 @@ class InboundController extends Controller{
      */
     public function store(Request $request){
         if ($validate = $this->validing($request->all(), [
-            'note' => 'required',
-            'm_gudang_id' => 'required',
-            'm_transport_id' => 'required',
-            'supir' => 'required',
-            'receive_by' => 'required',
-            'm_asal_id' => 'required',
-            'receive_at' => 'required'
+            'name' => 'required',
+            'desc' => 'required',
         ])){
             return $this->err_handler($request, 'error', $validate);
         }
         try{
-            $inbound = InboundHeader::create($request->toArray());
+            Asal::create($request->toArray());
         }catch(Exception $th){
             return $this->err_handler($request, 'error', $th->getMessage());
         }
-        return redirect(route('inbound.item').'?id='.$inbound->id);
+        return redirect($request->_last_);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Cabang  $cabang
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -81,7 +86,7 @@ class InboundController extends Controller{
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Cabang  $cabang
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -93,18 +98,20 @@ class InboundController extends Controller{
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Cabang  $cabang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id){
+        if ($request->has('toggle')){
+            Asal::find($id)->update(['status'=> $request->toggle]);
+        }
+        return redirect($request->_last_);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Cabang  $cabang
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

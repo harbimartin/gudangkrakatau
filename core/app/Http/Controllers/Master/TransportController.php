@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\MasterTransport;
+use App\MasterTransportGroup;
+use Exception;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -17,8 +19,11 @@ class TransportController extends Controller{
         $error = $this->err_get('error');
         if (!$length = $request->el)
             $length = 10;
-        $data = $this->getDataByRequest($request)->paginate($length);;
-        return view('pages.master.transport.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
+        $data = $this->getDataByRequest($request)->paginate($length);
+        $select = [
+            'group' => MasterTransportGroup::where('status', 1)->get(),
+        ];
+        return view('pages.master.transport.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error, 'select'=>$select]);
     }
     /**
      * Function to export excel files.
@@ -44,9 +49,7 @@ class TransportController extends Controller{
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(){
     }
 
     /**
@@ -56,7 +59,20 @@ class TransportController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //
+        if ($validate = $this->validing($request->all(), [
+            'name' => 'required',
+            'code' => 'required',
+            'group_id' => 'required',
+            'desc' => 'required',
+        ])){
+            return $this->err_handler($request, 'error', $validate);
+        }
+        try{
+            MasterTransport::create($request->toArray());
+        }catch(Exception $th){
+            return $this->err_handler($request, 'error', $th->getMessage());
+        }
+        return redirect($request->_last_);
     }
 
     /**
@@ -88,9 +104,9 @@ class TransportController extends Controller{
      * @param  \App\MasterTransport  $uom
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MasterTransport $uom){
+    public function update(Request $request, $id){
         if ($request->has('toggle')){
-            $uom->update(['status'=> $request->toggle]);
+            MasterTransport::find($id)->update(['status'=> $request->toggle]);
         }
         return redirect($request->_last_);
     }

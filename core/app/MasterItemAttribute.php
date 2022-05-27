@@ -1,6 +1,9 @@
 <?php
 
 namespace App;
+/**
+ * Column : m_item_id, m_attr_id, m_value_id
+ */
 class MasterItemAttribute extends AList{
     public $table = 'm_item_attributes';
     public $guarded = [];
@@ -20,4 +23,10 @@ class MasterItemAttribute extends AList{
         'created_at'=>1,
         'updated_at'=>1
     ];
+    public function attribute(){
+        return $this->hasOne(MasterAttribute::class, 'id', 'm_attr_id');
+    }
+    public function value(){
+        return $this->hasOne(MasterAttributeValue::class, 'id', 'm_value_id');
+    }
 }

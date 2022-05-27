@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Cabang;
 use App\Gudang;
+use App\GudangType;
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -18,7 +21,11 @@ class GudangController extends Controller{
         if (!$length = $request->el)
             $length = 10;
         $data = $this->getDataByRequest($request)->paginate($length);;
-        return view('pages.master.gudang.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error]);
+        $select = [
+            'cabang' => Cabang::where('status', 1)->get(),
+            'type' => GudangType::where('status', 1)->get()
+        ];
+        return view('pages.master.gudang.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error, 'select'=>$select]);
     }
     /**
      * Function to export excel files.
@@ -56,7 +63,27 @@ class GudangController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //
+        if ($validate = $this->validing($request->all(), [
+            'name' => 'required',
+            'desc' => 'required',
+            'kota' => 'required',
+            'longitude' => 'required',
+            'latitude' => 'required',
+            'panjang' => 'required',
+            'lebar' => 'required',
+            'tinggi' => 'required',
+            'kapasitas' => 'required',
+            'm_cabang_id' => 'required',
+            'type_id' => 'required'
+        ])){
+            return $this->err_handler($request, 'error', $validate);
+        }
+        try{
+            Gudang::create($request->toArray());
+        }catch(Exception $th){
+            return $this->err_handler($request, 'error', $th->getMessage());
+        }
+        return redirect($request->_last_);
     }
 
     /**
@@ -88,9 +115,9 @@ class GudangController extends Controller{
      * @param  \App\Gudang  $gudang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Gudang $gudang){
+    public function update(Request $request, $id){
         if ($request->has('toggle')){
-            $gudang->update(['status'=> $request->toggle]);
+            Gudang::find($id)->update(['status'=> $request->toggle]);
         }
         return redirect($request->_last_);
     }

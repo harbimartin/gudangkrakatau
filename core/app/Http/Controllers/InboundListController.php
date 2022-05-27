@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\TInboundHeader;
+use App\InboundHeader;
 use Illuminate\Http\Request;
 
-class TInboundHeaderController extends Controller
+class InboundListController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(Request $request){
+        if ($request->id){
+            return redirect(route('inbound.item', ['id'=>$request->id]));
+        }
+        if (!$length = $request->el)
+            $length = 10;
+        $data = InboundHeader::filter($request)->paginate($length);
+        return view('pages.inbound.list', [ 'data'=>$data->getCollection(), 'table'=>$this->tableProp($data)]);
     }
 
     /**
@@ -41,10 +46,10 @@ class TInboundHeaderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\TInboundHeader  $tInboundHeader
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(TInboundHeader $tInboundHeader)
+    public function show($id)
     {
         //
     }
@@ -52,10 +57,10 @@ class TInboundHeaderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TInboundHeader  $tInboundHeader
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(TInboundHeader $tInboundHeader)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +69,10 @@ class TInboundHeaderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TInboundHeader  $tInboundHeader
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TInboundHeader $tInboundHeader)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +80,10 @@ class TInboundHeaderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TInboundHeader  $tInboundHeader
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TInboundHeader $tInboundHeader)
+    public function destroy($id)
     {
         //
     }

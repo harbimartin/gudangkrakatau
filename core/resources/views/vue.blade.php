@@ -62,9 +62,11 @@ var vue = new Vue({
     created(){
         <?php
             // echo "console.log('this.tmenu_0 = undefined;');";
-            echo "this.tmenu_0 = undefined;";
+            echo "this.tmenu = undefined;";
             foreach($menus as $ind => $menu){
-                consoling($menu, 'this.tmenu_0', $ind, $sel_tab);
+                if (consoling($menu, 'this.tmenu', $ind, $sel_tab)){
+                    "this.tmenu = '".$menu['key']."';";
+                }
             }
             function consoling($menu, $curr, $ind, $sel_tab){
                 if (isset($menu['children'])){
@@ -72,6 +74,7 @@ var vue = new Vue({
                     foreach($menu['children'] as $i => $mm){
                         if (consoling($mm, $curr.'_'.$ind, $i, $sel_tab)){
                             echo $curr." = '".$menu['key']."';";
+                            return true;
                         }
                     }
                     return false;
@@ -401,7 +404,6 @@ var vue = new Vue({
         },
         showTab(id, menu){
             const el = document.getElementById(menu);
-            console.log(id, this[id]);
             if (this[id]){
                 if (this[id]==menu){
                     this[id] = undefined;
@@ -413,6 +415,7 @@ var vue = new Vue({
             }
             this[id] = menu;
             el.classList.add('block');
+            console.log(id, this);
         },
         @isset($chatAble)
             toChat($id){

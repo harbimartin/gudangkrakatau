@@ -38,4 +38,10 @@ class Gudang extends AList{
         'created_at'=>1,
         'updated_at'=>1
     ];
+    public function cabang(){
+        return $this->hasOne(Cabang::class, 'id', 'm_cabang_id');
+    }
+    public function type(){
+        return $this->hasOne(GudangType::class, 'id', 'type_id');
+    }
 }

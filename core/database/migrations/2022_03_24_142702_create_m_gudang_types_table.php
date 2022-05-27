@@ -11,8 +11,7 @@ class CreateMGudangTypesTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
+    public function up(){
         Schema::create('m_gudang_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');

@@ -2,7 +2,7 @@
 
 namespace App;
 /**
- * Column : id, name,desc,status, created_at, updated_at
+ * Column : m_gudang_id, code,  m_transport_id, receive_by, note, supir, m_asal_id, receive_at
  */
 class InboundHeader extends AList{
     public $table = 't_inbound_headers';
@@ -23,4 +23,17 @@ class InboundHeader extends AList{
         'created_at'=>1,
         'updated_at'=>1
     ];
+
+    public function gudang(){
+        return $this->hasOne(Gudang::class, 'id', 'm_gudang_id');
+    }
+    public function transport(){
+        return $this->hasOne(Gudang::class, 'id', 'm_transport_id');
+    }
+    public function receiver(){
+        return $this->hasOne(User::class, 'id', 'receive_by');
+    }
+    public function asal(){
+        return $this->hasOne(Asal::class, 'id', 'm_asal_id');
+    }
 }

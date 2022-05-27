@@ -12,7 +12,7 @@
     @isset($menu['children'])
     <div id="{{$menu['key']}}" name="{{$menu['key']}}" class="thidden pl-{{$margin}}" v-bind:class="{block : {{$level}} == '{{$menu['key']}}'}">
         @foreach($menu['children'] as $ind => $child)
-            <x-sub-menu :menu="$child" :margin="$margin+3" :level="$level.'_'.$ind"></x-sub-menu>
+            <x-sub-menu :menu="$child" :on="$on" :margin="$margin+3" :level="$level.'_'.$index" :index="$ind"></x-sub-menu>
         @endforeach
     </div>
     @endisset

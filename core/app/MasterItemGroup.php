@@ -22,7 +22,12 @@ class MasterItemGroup extends AList{
         'updated_at'=>1
     ];
 
-    public function attr(){
+    public function sku(){
         return $this->hasMany(MasterItemGroupSku::class, 'm_item_group_id', 'id')->orderBy('sequence');
+    }
+    public function attr(){
+        return $this->hasMany(MasterItemGroupSku::class, 'm_item_group_id', 'id')->select('m_item_group_id','name')->leftJoin('m_attributes', function($q){
+            return $q->on('m_attributes.id', 'm_attribute_id');
+        })->orderBy('sequence');
     }
 }

@@ -22,4 +22,40 @@ class MasterItem extends AList{
         'created_at'=>1,
         'updated_at'=>1
     ];
+    protected $append = ['state'];
+
+    public function group(){
+        return $this->hasOne(MasterItemGroup::class, 'id', 'group_id');
+    }
+    public function classification(){
+        return $this->hasMany(MasterItemClassification::class, 'id', 'classification_id');
+    }
+    public function sku(){
+        return $this->hasMany(MasterItemGroupSku::class, 'm_item_group_id', 'group_id')->select('code')->leftJoin('m_item_attributes', function($q){
+            return $q->on('m_item_attributes.m_attr_id', 'm_attribute_id');
+        })->leftJoin('m_attribute_values', function($q){
+            return $q->on('m_item_attributes.m_value_id', 'm_attribute_values.id');
+        })->orderBy('sequence');
+    }
+    public function getHardSkuAttribute(){
+        $sku = $this->hasMany(MasterItemGroupSku::class, 'm_item_group_id', 'group_id')->select('code')->leftJoin('m_item_attributes', function($q){
+            return $q->on('m_item_attributes.m_attr_id', 'm_attribute_id');
+        })->leftJoin('m_attribute_values', function($q){
+            return $q->on('m_item_attributes.m_value_id', 'm_attribute_values.id');
+        })->orderBy('sequence')->get();
+        $t = '';
+        foreach($sku as $s){
+            $t.=$s['code'];
+        }
+        return $t;
+    }
+    public function getStateAttribute(){
+        if ($this->status == 0)
+            return 0;
+        foreach($this->sku as $code){
+            if ($code->code == null)
+                return 1;
+        }
+        return 2;
+    }
 }

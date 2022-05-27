@@ -170,13 +170,14 @@
                                 <?php
                                     $cid = isset($param->id) ? $param->id : 'id';
                                     $base_value='';
+                                    $mandatory = isset($param->mandatory);
                                     $tsdef = isset($error['data'][$key]) ? $error['data'][$key] : (isset($param->def) ? $param->def : null);
                                 ?>
                                 @foreach ($select[$param->api] as $item)
                                     <option
                                         <?php
                                             $samerr = isset($error['data'][$key]) && $item[$cid] == $tsdef;
-                                            $txt='';
+                                            $txt = $mandatory && $item[$param->mandatory] ? '*  ' : '';
                                             $desc='';
                                             if (isset($param->format)){
                                                 foreach($param->val as $kk => $val){

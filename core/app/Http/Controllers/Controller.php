@@ -59,10 +59,11 @@ class Controller extends BaseController
         unset($_SESSION[$key]);
         return $return;
     }
-    public function err_handler(Request $request,$key, $error){
+    public function err_handler(Request $request,$key, $error, $session_is_off = true){
         if (is_array($error))
             $error = implode(", ",$error).'.';
-        session_start();
+        if ($session_is_off)
+            session_start();
         $_SESSION[$key] = [ 'msg'=>$error, 'data'=>$request->toArray()];
         return redirect($request->_last_);
     }

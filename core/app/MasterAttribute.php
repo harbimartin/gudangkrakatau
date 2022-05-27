@@ -23,4 +23,10 @@ class MasterAttribute extends AList{
     public function uom_group(){
         return $this->hasOne(MasterUnitGroup::class, 'id', 'm_uom_group_id');
     }
+    public function item(){
+        return $this->hasMany(MasterItemAttribute::class, 'm_attr_id', 'id');
+    }
+    public function sku(){
+        return $this->hasOne(MasterItemGroupSku::class, 'm_attribute_id', 'id');
+    }
 }

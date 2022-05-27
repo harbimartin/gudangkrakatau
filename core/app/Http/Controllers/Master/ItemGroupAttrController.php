@@ -116,29 +116,33 @@ class ItemGroupAttrController extends Controller{
             $target = MasterItemGroupSku::find($id);
             $high = 0; $high_obj = null; $higher = 0;
             if ($request->shift == 'head'){
-                foreach($target->sibling as $sibling){
+                foreach( $target->sibling as $sibling){
                     if ($sibling->sequence < $target->sequence){
                         $higher = $high;
                         $high = $sibling->sequence;
-                        $high_obj = $target;
+                        $high_obj = $sibling;
                     }
                 }
             }else{ // 'tail'
-                foreach($target->siblingr as $sibling){
+                foreach( $target->siblingr as $sibling){
                     if ($sibling->sequence > $target->sequence){
                         $higher = $high;
                         $high = $sibling->sequence;
-                        $high_obj = $target;
+                        $high_obj = $sibling;
                     }
                 }
+                if ($higher == 0)
+                    $higher = $high + 10;
             }
             $mid = round(($high + $higher) / 2);
-            if ($mid == $high){
-                if ($high_obj)
-                    $high_obj->update(['sequence' => $target->sequence]);
-                $target->update(['sequence' => $mid]);
-            }else{
-                $target->update(['sequence' => $mid]);
+            if ($high_obj){
+                if ($mid == $high){
+                    if ($high_obj)
+                        $high_obj->update(['sequence' => $target->sequence]);
+                    $target->update(['sequence' => $higher]);
+                }else{
+                    $target->update(['sequence' => $mid]);
+                }
             }
         }
         return redirect($request->_last_);

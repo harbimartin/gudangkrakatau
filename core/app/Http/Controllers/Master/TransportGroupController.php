@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\MasterTransportGroup;
+use Exception;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -56,7 +57,19 @@ class TransportGroupController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //
+        if ($validate = $this->validing($request->all(), [
+            'name' => 'required',
+            'code' => 'required',
+            'desc' => 'required',
+        ])){
+            return $this->err_handler($request, 'error', $validate);
+        }
+        try{
+            MasterTransportGroup::create($request->toArray());
+        }catch(Exception $th){
+            return $this->err_handler($request, 'error', $th->getMessage());
+        }
+        return redirect($request->_last_);
     }
 
     /**
@@ -88,9 +101,9 @@ class TransportGroupController extends Controller{
      * @param  \App\MasterTransportGroup  $uom
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MasterTransportGroup $uom){
+    public function update(Request $request, $id){
         if ($request->has('toggle')){
-            $uom->update(['status'=> $request->toggle]);
+            MasterTransportGroup::find($id)->update(['status'=> $request->toggle]);
         }
         return redirect($request->_last_);
     }

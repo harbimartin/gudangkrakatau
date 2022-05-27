@@ -1,19 +1,13 @@
 <?php
 
 namespace App;
-
-
-/**
- * Column : id, name,desc,status, created_at, updated_at
- */
-class GudangType extends AList {
-    public $table = 'm_gudang_types';
+class MasterItemClassification extends AList{
+    public $table = 'm_item_classifications';
     public $guarded = [];
     protected $sort_default = 'created_at';
     protected $date_default = 'created_at';
     protected $sortable = [
         'name'=>null,
-        'desc'=>null,
         'status'=>null,
         'created_at'=>null,
         'updated_at'=>null
@@ -25,4 +19,8 @@ class GudangType extends AList {
         'created_at'=>1,
         'updated_at'=>1
     ];
+
+    public function item(){
+        return $this->hasMany(MasterItem::class, 'classification_id', 'id');
+    }
 }

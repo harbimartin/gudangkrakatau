@@ -21,16 +21,6 @@
             'act'=>[ 'name'=>"Action", 'type' => 'Edit', 'align'=>'center', 'sort'=>false]
         ]);
     ?>
-    <x-add
-        :column="$column_add"
-        :data="$data"
-        unique="add"
-        title="Form Add Attribute"
-        button="Add Attribute"
-        :select="$select"
-        :error="$error"
-    >
-    </x-add>
     <x-update
         :column="$column_header"
         :data="$header"
@@ -40,11 +30,4 @@
         :error="$error"
     >
     </x-update>
-    <x-table
-        :datef="true"
-        :column="$column_table"
-        :datas="$data"
-        :prop="$table"
-    >
-    </x-table>
 @endsection

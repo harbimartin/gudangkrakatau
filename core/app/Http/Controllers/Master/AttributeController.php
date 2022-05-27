@@ -16,14 +16,14 @@ class AttributeController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
+        if ($request->id){
+            return redirect(route('attr.value', ['id'=>$request->id]));
+        }
         if (!$length = $request->el)
             $length = 10;
         $select = [
             'group' => MasterUnitGroup::select('id','name','desc')->where('status', 1)->get()
         ];
-        if ($request->id){
-            return redirect(route('attr.value', ['id'=>$request->id]));
-        }
         $error = $this->err_get('error');
         $data = $this->getDataByRequest($request)->paginate($length);
         return view('pages.master.attr.index', [ 'data' => $data->getCollection(), 'table'=>$this->tableProp($data), 'error'=>$error, 'select'=>$select]);

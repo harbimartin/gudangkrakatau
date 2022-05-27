@@ -1,18 +1,15 @@
 @extends('index', ['on'=>'inbound'])
 @section('content')
     {{-- <form class="container md:rounded-lg shadow my-3 md:my-8 py-2 md:py-4 px-3 md:px-6 bg-white text-xs md:text-base" action="{{request()->fullUrl()}}" method="POST" enctype="multipart/form-data"> --}}
-        <?php
+    <?php
         $column = json_encode([
-            'gudang_id'=>[ 'name'=>"Gudang", 'type'=>'String', 'full'=>false, 'def'=>'Gudang JKT'],
-            'code'=>[ 'name'=>"Kode", 'type'=>'String', 'full'=>false, 'def'=>'JKT009121'],
-            'm_transport_id'=>[ 'name'=>"Kendaraan", 'type'=>'String', 'full'=>false, 'def'=>'Truck'],
-            'receive_by'=>[ 'name'=>"Diterima Oleh", 'type'=>'String', 'full'=>false, 'def'=>'Alex Refandi'],
-            'note'=>[ 'name'=>"Catatan", 'type'=>'String', 'def'=>'Barang tiba dengan aman'],
-            'supir'=>[ 'name'=>"Supir", 'type'=>'String', 'def'=>'Jordi'],
-            'm_asal_id'=>[ 'name'=>"Asal Barang", 'type'=>'String', 'def'=>'Cilegon'],
-            'receive_at'=>[ 'name'=>"Diterima", 'type'=>'Date', 'def'=>'0'],
-            // 'created_at'=>[ 'name'=>"Created", 'type'=>'Date', 'def'=>'0'],
-            // 'updated_at'=>[ 'name'=>"Update", 'type'=>'Date', 'def'=>'1']
+            'm_gudang_id' => [ 'name'=>'Gudang', 'type'=>"TextSel", 'api'=>'gudang', 'val'=>['name'], 'desc'=>['desc']],
+            'm_transport_id' => [ 'name'=>'Angkutan', 'type'=>"TextSel", 'api'=>'angkutan', 'val'=>['tname', 'name'], 'desc'=>['tcode','code','desc']],
+            'receive_by' => [ 'name'=>'Diterima Oleh', 'type'=>"TextSel", 'api'=>'user', 'val'=>['name'], 'desc'=>['jabatan']],
+            'note'=>[ 'name'=>"Catatan", 'type'=>'TextArea', 'full'=>true],
+            'supir'=>[ 'name'=>"Supir", 'type'=>'String'],
+            'm_asal_id' => [ 'name'=>'Asal', 'type'=>"TextSel", 'api'=>'asal', 'val'=>['name'], 'desc'=>['desc']],
+            'receive_at'=>[ 'name'=>"Diterima", 'type'=>'Date' , 'def'=>'0'],
         ]);
         // foreach(json_decode($data['body']) as $object){
         //     $arrays[] =  (array) $object;
@@ -53,6 +50,8 @@
             :data="$header"
             :detail="true"
             button="Tambah Pemasukan Header"
+            :select="$select"
+            :herror="$herror"
         >
         </x-update>
         @yield('detail')
@@ -64,6 +63,8 @@
         {{-- :data="$data" --}}
         :detail="true"
         button="Tambah Pemasukan Header"
+        :select="$select"
+        :error="$error"
     >
     </x-add>
     @endisset

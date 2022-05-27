@@ -41,10 +41,10 @@ class GroupMenuController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\GroupMenu  $groupMenu
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(GroupMenu $groupMenu)
+    public function show($id)
     {
         //
     }
@@ -52,10 +52,10 @@ class GroupMenuController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\GroupMenu  $groupMenu
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(GroupMenu $groupMenu)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +64,10 @@ class GroupMenuController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\GroupMenu  $groupMenu
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GroupMenu $groupMenu)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +75,10 @@ class GroupMenuController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\GroupMenu  $groupMenu
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GroupMenu $groupMenu)
+    public function destroy($id)
     {
         //
     }

@@ -55,6 +55,31 @@ class DatabaseSeeder extends Seeder{
             'name' => 'Data Master',
             'icon' => 0
         ],[
+            'parent' => null,
+            'key' => 'trans',
+            'name' => 'Transaksi',
+            'icon' => 0
+        ],[
+            'parent' => null,
+            'key' => 'proc',
+            'name' => 'Proses',
+            'icon' => 0
+        ],[
+            'parent' => 2,
+            'key' => 'wh',
+            'name' => 'Pergudangan',
+            'icon' => 0
+        ],[
+            'parent' => 2,
+            'key' => 'it',
+            'name' => 'Pembarangan',
+            'icon' => 0
+        ],[
+            'parent' => 2,
+            'key' => 'mv',
+            'name' => 'Perpindahan',
+            'icon' => 0
+        ],[
             'parent' => 1,
             'key' => 'menu-man',
             'name' => 'Menu',
@@ -70,27 +95,42 @@ class DatabaseSeeder extends Seeder{
             'name' => 'Grup',
             'icon' => 1
         ],[
-            'parent' => 2,
+            'parent' => 5,
             'key' => 'branch',
             'name' => 'Cabang',
             'icon' => 1
         ],[
-            'parent' => 2,
+            'parent' => 5,
+            'key' => 'whtype',
+            'name' => 'Tipe Gudang',
+            'icon' => 1
+        ],[
+            'parent' => 5,
             'key' => 'whouse',
             'name' => 'Gudang',
             'icon' => 1
         ],[
-            'parent' => 2,
-            'key' => 'igroup',
-            'name' => 'Jenis Barang',
+            'parent' => 7,
+            'key' => 'origin',
+            'name' => 'Asal',
             'icon' => 1
         ],[
-            'parent' => 2,
+            'parent' => 6,
+            'key' => 'igroup',
+            'name' => 'Jenis',
+            'icon' => 1
+        ],[
+            'parent' => 6,
+            'key' => 'iclass',
+            'name' => 'Klasifikasi',
+            'icon' => 1
+        ],[
+            'parent' => 6,
             'key' => 'attr',
             'name' => 'Atribut',
             'icon' => 1
         ],[
-            'parent' => 2,
+            'parent' => 6,
             'key' => 'item',
             'name' => 'Barang',
             'icon' => 1
@@ -100,32 +140,42 @@ class DatabaseSeeder extends Seeder{
             'name' => 'Satuan',
             'icon' => 1
         ],[
-            'parent' => 2,
+            'parent' => 7,
+            'key' => 't_group',
+            'name' => 'Grup Angkutan',
+            'icon' => 1
+        ],[
+            'parent' => 7,
             'key' => 't-port',
             'name' => 'Angkutan',
             'icon' => 1
         ],[
-            'parent' => null,
+            'parent' => 3,
             'key' => 'inbound',
+            'name' => 'Pemasukan',
+            'icon' => 2
+        ],[
+            'parent' => 3,
+            'key' => 'inbound.list',
             'name' => 'Pemasukan',
             'icon' => 1
         ],[
-            'parent' => null,
+            'parent' => 3,
             'key' => 'crossdock',
             'name' => 'Pemindahan',
             'icon' => 1
         ],[
-            'parent' => null,
+            'parent' => 3,
             'key' => 'outbound',
             'name' => 'Pengeluaran',
             'icon' => 1
         ],[
-            'parent' => null,
+            'parent' => 4,
             'key' => 'assemble',
             'name' => 'Perakitan',
             'icon' => 1
         ],[
-            'parent' => null,
+            'parent' => 4,
             'key' => 'disassemble',
             'name' => 'Pembongkaran',
             'icon' => 1
@@ -614,6 +664,22 @@ class DatabaseSeeder extends Seeder{
         MasterAttribute::insert(array([
             'name' => 'Brand',
             'desc' => '-',
+            'status' => 1
+        ],[
+            'name' => 'Model',
+            'desc' => 'Nama Model Barang',
+            'status' => 1
+        ],[
+            'name' => 'RAM Size',
+            'desc' => 'Besar Ukuran Random Access Memory',
+            'status' => 1
+        ],[
+            'name' => 'Processor',
+            'desc' => 'Nama IC Processor',
+            'status' => 1
+        ],[
+            'name' => 'Color',
+            'desc' => 'Warna',
             'status' => 1
         ]));
     }

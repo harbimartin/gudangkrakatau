@@ -16,7 +16,7 @@ class CreateMAttributeValuesTable extends Migration {
             $table->string('value');
             $table->char('code',5);
             $table->unsignedBigInteger('m_attr_id');
-            $table->unsignedBigInteger('m_uom_id');
+            $table->unsignedBigInteger('m_uom_id')->nullable();
             $table->timestamps();
         });
         Schema::table('m_attribute_values', function (Blueprint $table) {

@@ -23,6 +23,38 @@
         ?>
             <div class="@isset($param->iclass){{$param->iclass}}@endisset @isset($param->wrap) whitespace-normal @endisset">{{$txt}}</div>
         @break
+    @case('Array')
+    <?php
+        $pkey = isset($param->by) ? $param->by : $key;
+        $txt = '';
+        $spr = isset($param->separator) ? $param->separator : '';
+        if (sizeof($item[$pkey]) > 0){
+            if (is_array($param->child)){
+                foreach($item[$pkey] as $it){
+                    foreach($param->child as $kk => $val){
+                        $str = $it[$val];
+                        if ($kk == 0)
+                            $txt = $txt.($str == '' ? '(Blank)':$str);
+                        else
+                            $txt = $txt.$spr.$str;
+                    }
+                }
+            }else {
+                foreach($item[$pkey] as $ii => $it){
+                    if ($ii == 0)
+                        $txt = $txt.$it[$param->child];
+                    else
+                        $txt = $txt.$spr.$it[$param->child];
+                }
+            }
+        }
+    ?>
+    @if($txt)
+        <div class="@isset($param->iclass){{$param->iclass}}@endisset @isset($param->wrap) whitespace-normal @endisset">{{$txt}}</div>
+    @else
+        <div class="text-gray-400">@isset($param->empty){{$param->empty}}@else &nbsp;(Blank)@endif</div>
+    @endif
+    @break
     @case('String')
             <div class="@isset($param->iclass){{$param->iclass}}@endisset @isset($param->wrap) whitespace-normal @endisset" @isset($param->wrap)style="min-width:200px;"@endisset>{{$item[$key]}}</div>
         @break
